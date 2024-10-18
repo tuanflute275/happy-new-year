@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="user-scalable=0" />
+    <meta property="og:url" content="https://tuanflute275.site/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TUANFLUTE - PROFILE" />
+    <meta property="og:image" content="assets/img/logo.jpg" />
+    <meta
+      property="og:description"
+      content="Chúc mừng năm mới - Giáp Thìn 2025 - TUANFLUTE"
+    />
+    <meta
+      name="description"
+      content="Chúc mừng năm mới - Giáp Thìn 2025 - TUANFLUTE"
+    />
+
+    <title>HAPPY NEW YEAR - 2025 | TUANFLUTE</title>
+    <link href="assets/img/logo.jpg" rel="icon" />
+
+    <link rel="stylesheet" href="assets/css/self.css" />
+    <link rel="stylesheet" href="assets/css/count_down.css" />
+    <link rel="stylesheet" href="assets/css/fireworks.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  </head>
+
+  <body>
+    <div id="setting-btn">
+      <i class="fa-solid fa-gear"></i>
+    </div>
+  
+    <!-- Tạo menu setting -->
+    <div id="setting-menu" class="hidden">
+        <ul>
+            <li><a href="firework.html" target="_blank">fireworks view</a></li>
+            <li><a href="javascript:void(0)" id="change-song">Random song</a></li>
+            <li><a href="javascript:void(0)" id="play-song" style="display: none;">Play song</a></li>
+            <li><a href="javascript:void(0)" id="pause-song">Pause song</a></li>
+        </ul>
+    </div>
+
+    <!-- view canvas -->
+    <canvas id="canvasSnow"></canvas>
+
+    <div class="holder">
+      <div class="new-year"></div>
+      <div class="den-long__group">
+        <img src="assets/img/den_long.png" />
+        <img src="assets/img/den_long.png" />
+      </div>
+      <div class="group__common dragon">
+        <img src="assets/img/dragon.png" />
+      </div>
+      <div class="group__common tet_xum_vay">
+        <img src="assets/img/tet_xum_vay.png" />
+      </div>
+    </div>
+
+    <!-- App -->
+    <div class="container__firework">
+      <div class="stage-container__firework">
+        <div class="canvas-container__firework">
+          <canvas id="trails-canvas"></canvas>
+          <canvas id="main-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audioEl" autoplay></audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/fscreen%401.0.1.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/Stage%400.1.4.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/MyMath.js"></script>
+    <script src="assets/js/self.js"></script>
+    <script src="assets/js/count_down.js"></script>
+    <script src="assets/js/fireworks.js"></script>
+    <script src="assets/js/snowflake.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script type="text/javascript">
+      const TIME_WRITER = 300;
+      const arrayList = [
+        "Chúc mừng năm mới, đầy đủ sức khỏe, hạnh phúc và thành công.\nMong rằng mọi điều tốt lành sẽ đến với bạn và gia đình trong năm mới.",
+        "Năm mới an khang, tài lộc đầy nhà.\nChúc bạn gặp nhiều may mắn và thăng tiến trong công việc cũng như trong cuộc sống cá nhân.",
+        "Năm mới rộn ràng như bông hoa nở, hạnh phúc nhưng tia nắng sáng.\nChúc bạn có những trải nghiệm đáng nhớ và ngập tràn niềm vui.",
+        "Chúc mừng năm mới, tình thân thắm thiết, tình bạn bền vững.\nMong rằng mối quan hệ của bạn sẽ ngày càng mạnh mẽ và ý nghĩa.",
+        "Năm mới đến, hãy để những lo lắng ở năm cũ, mở cửa trái tim đón nhận niềm tin mới, hy vọng mới và những cơ hội mới.",
+        "Chúc bạn và gia đình có một năm mới tràn đầy năng lượng tích cực, đầy đủ niềm vui và thành công rực rỡ.",
+        "Năm mới, hãy để những bước chân của bạn dẫn đến những con đường mới, mở ra những trang mới trong cuộc đời.",
+        "Chúc bạn có một năm mới thú vị, đầy ắp những chuyến phiêu lưu, và khám phá những điều mới mẻ.",
+        "Năm mới hạnh phúc, công việc thuận lợi, tình yêu mãnh liệt.\nChúc bạn có một năm mới đáng nhớ và ý nghĩa.",
+        "Chúc mừng năm mới, hãy sống mỗi ngày với đầy đủ nghĩa lý và trân trọng từng khoảnh khắc.",
+      ];
+    </script>
+    <script src="assets/js/script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const audioList = [
+          "assets/audio/Di-Ve-Nha-Den-JustaTee.mp3",
+          "assets/audio/ChuyenCuBoQua3-TrucNhanRickyStar-6896732.mp3",
+          "assets/audio/DiDeTroVe-SoobinHoangSon-4726882.mp3",
+          "assets/audio/NamQuaDaLamGi-BuiCongNam-8309403.mp3",
+          "assets/audio/NgayXuanLongPhungSumVay-VA-2712302.mp3",
+          "assets/audio/TetDongDay-KHOANguyenKhoa-5850771.mp3",
+          "assets/audio/VeNhaAnTet-BigDaddyJustaTee-8488048.mp3",
+          "assets/audio/Tết Trong Tâm Hồn.mp3",
+        ];
+
+        // Hàm xử lý khi bài hát kết thúc
+        function handleSongEnded() {
+          const audioEl = document.getElementById("audioEl");
+          const randomAudio =
+            audioList[Math.floor(Math.random() * audioList.length)];
+          audioEl.src = randomAudio;
+          audioEl.muted = false;
+          audioEl.play().catch((error) => {
+            console.error("Phát nhạc thất bại: ", error);
+          });
+          handleNextMusic();
+        }
+
+        // Hàm thay đổi bài hát
+        function handleNextMusic() {
+          const audioEl = document.getElementById("audioEl");
+          const randomAudio = audioList[Math.floor(Math.random() * audioList.length)];
+          audioEl.src = randomAudio;
+          audioEl.muted = false;
+          audioEl.play().catch((error) => {
+            console.error("Phát nhạc thất bại: ", error);
+          });
+        }
+
+        //change song
+        document.getElementById("change-song").addEventListener("click", function () {
+          handleNextMusic();
+        });
+
+        // play song
+        document.getElementById("play-song").addEventListener("click", function () {
+          const audioEl = document.getElementById("audioEl");
+          audioEl.play().catch((error) => {
+            console.error("Phát nhạc thất bại: ", error);
+          });
+          updatePlayPauseButtons();
+        });
+
+        // Gắn sự kiện click cho liên kết "Pause song"
+        document.getElementById("pause-song").addEventListener("click", function () {
+          const audioEl = document.getElementById("audioEl");
+          audioEl.pause();
+          updatePlayPauseButtons();
+        });
+
+        // update button play and pause
+        function updatePlayPauseButtons() {
+          const playButton = document.getElementById("play-song");
+          const pauseButton = document.getElementById("pause-song");
+
+          if (audioEl.paused) {
+            playButton.style.display = "inline";  // Hiện nút Play
+            pauseButton.style.display = "none";    // Ẩn nút Pause
+          } else {
+            playButton.style.display = "none";     // Ẩn nút Play
+            pauseButton.style.display = "inline";   // Hiện nút Pause
+          }
+        }
+
+        // Gắn sự kiện "ended" cho phần tử audio
+        const audioEl = document.getElementById("audioEl");
+        audioEl.addEventListener("ended", handleSongEnded);
+
+        // Code hiển thị overlay và xử lý sự kiện khi click để phát nhạc
+        const overlay = document.createElement("div");
+        overlay.id = "overlay";
+        overlay.style.position = "fixed";
+        overlay.style.top = 0;
+        overlay.style.left = 0;
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
+        overlay.style.color = "white";
+        overlay.style.display = "flex";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.fontSize = "2em";
+        overlay.style.zIndex = 1000;
+        overlay.innerHTML = "Nhấp vào bất kỳ đâu để phát nhạc";
+        document.body.appendChild(overlay);
+
+        overlay.addEventListener("click", function () {
+          const audioEl = document.getElementById("audioEl");
+          const randomAudio =
+            audioList[Math.floor(Math.random() * audioList.length)];
+            audioEl.src = randomAudio;
+            audioEl.muted = false;
+            audioEl.play().catch((error) => {
+              console.error("Phát nhạc thất bại: ", error);
+            });
+            overlay.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>

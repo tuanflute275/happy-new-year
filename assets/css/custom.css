@@ -1,0 +1,51 @@
+#setting-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 99999999999999999999999;
+  opacity: 0.8;
+}
+
+#setting-btn i {
+  font-size: 24px;
+  color: #333;
+}
+
+#setting-menu {
+  position: fixed;
+  top: 66px;
+  right: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: none;
+  z-index: 1000;
+  border-radius: 5px;
+  z-index: 999999999999999999999;
+  opacity: 0.8;
+}
+
+#setting-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#setting-menu ul li {
+  margin-bottom: 10px;
+}
+
+#setting-menu ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}

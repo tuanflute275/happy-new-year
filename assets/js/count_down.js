@@ -5,8 +5,11 @@
       return Math.floor(Math.random() * (t - e + 1) + e);
     },
     get period() {
-      let t = new Date("01/29/2025").getTime(),
-        n = new Date(),
+      let dateString = "17/02/2026";
+      let parts = dateString.split("/"); 
+      let formattedDate = `${parts[1]}/${parts[0]}/${parts[2]}`; 
+      let t = new Date(formattedDate).getTime();
+      n = new Date(),
         r = Math.floor((t - n) / 1e3),
         o = Math.floor(r / 60),
         l = Math.floor(o / 60),

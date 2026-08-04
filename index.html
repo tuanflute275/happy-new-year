@@ -45,12 +45,13 @@
   <!-- Tạo menu setting -->
   <div id="setting-menu" class="hidden">
     <ul>
-      <li><a href="firework.html" target="_blank">fireworks view</a></li>
-      <li><a href="javascript:void(0)" id="change-song">Random song</a></li>
+      <li><a href="firework.html" target="_blank">Xem pháo hoa</a></li>
+      <li><a href="javascript:void(0)" id="change-song">Đổi nhạc nền</a></li>
       <li>
-        <a href="javascript:void(0)" id="play-song" style="display: none">Play song</a>
+        <a href="javascript:void(0)" id="play-song" style="display: none">Phát nhạc</a>
       </li>
-      <li><a href="javascript:void(0)" id="pause-song">Pause song</a></li>
+      <li><a href="javascript:void(0)" id="pause-song">Tạm dừng nhạc</a></li>
+      <li><a href="javascript:void(0)" id="toggle-lite">Chế độ nhẹ: TẮT</a></li>
     </ul>
   </div>
 
@@ -101,6 +102,9 @@
   <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/fscreen%401.0.1.js"></script>
   <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/Stage%400.1.4.js"></script>
   <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/MyMath.js"></script>
+  <script type="text/javascript">
+    window.isLiteMode = localStorage.getItem("lite-mode") === "true";
+  </script>
   <script src="assets/js/self.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.min.js"></script>
   <script src="assets/js/count_down.js"></script>
@@ -207,6 +211,36 @@
       // Gắn sự kiện "ended" cho phần tử audio
       const audioEl = document.getElementById("audioEl");
       audioEl.addEventListener("ended", handleSongEnded);
+
+      // Lite Mode
+      const toggleLiteBtn = document.getElementById("toggle-lite");
+      function updateLiteModeButton() {
+        if (window.isLiteMode) {
+          toggleLiteBtn.textContent = "Chế độ nhẹ: BẬT";
+        } else {
+          toggleLiteBtn.textContent = "Chế độ nhẹ: TẮT";
+        }
+      }
+      updateLiteModeButton();
+      toggleLiteBtn.addEventListener("click", function () {
+        window.isLiteMode = !window.isLiteMode;
+        localStorage.setItem("lite-mode", window.isLiteMode);
+        updateLiteModeButton();
+        if (window.isLiteMode) {
+          const snowCanvas = document.getElementById("canvasSnow");
+          if (snowCanvas) {
+            snowCanvas.getContext("2d").clearRect(0, 0, snowCanvas.width, snowCanvas.height);
+          }
+          const mainCanvas = document.getElementById("main-canvas");
+          const trailsCanvas = document.getElementById("trails-canvas");
+          if (mainCanvas) {
+            mainCanvas.getContext("2d").clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+          }
+          if (trailsCanvas) {
+            trailsCanvas.getContext("2d").clearRect(0, 0, trailsCanvas.width, trailsCanvas.height);
+          }
+        }
+      });
 
       // Code hiển thị overlay và xử lý sự kiện khi click để phát nhạc
       const overlay = document.createElement("div");

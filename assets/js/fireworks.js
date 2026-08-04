@@ -631,6 +631,10 @@ function updateGlobals(e, t) {
       (autoLaunchTime = 1.25 * startSequence());
 }
 function update(e, t) {
+  if (window.isLiteMode) {
+    stages.forEach(stage => stage.ctx.clearRect(0, 0, stageW, stageH));
+    return;
+  }
   if (!isRunning()) return;
   let r = e * simSpeed,
     l = simSpeed * t;

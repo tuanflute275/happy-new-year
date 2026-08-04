@@ -86,6 +86,11 @@ function reset(a) {
     (a._ratate = Math.random());
 }
 function tick() {
+  if (window.isLiteMode) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    requestAnimationFrame(tick);
+    return;
+  }
   canvas && (draw(), update(), requestAnimationFrame(tick));
 }
 window.addEventListener("resize", sizeCanvas), tick();

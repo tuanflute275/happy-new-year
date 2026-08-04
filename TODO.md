@@ -18,9 +18,8 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 
 - [ ] **Hiệu ứng "Giao thừa"** — khi đếm ngược về 0: tự bắn pháo hoa finale (tận dụng `store` có sẵn trong `fireworks.js`) + hiện banner "Chúc mừng năm mới 2027". *File liên quan: `count_down.js`, `fireworks.js`, file mới `celebrate.js`.*
 - [ ] **Nút "Chia sẻ" + "Tạo lời chúc riêng"** trong menu cài đặt — chia sẻ link hiện tại (Web Share API/copy link), hoặc nhập tên người nhận để tự sinh link `?to=Tên` rồi copy gửi đi. *Phối hợp trực tiếp với tính năng cá nhân hoá đã có.*
-- [ ] **Chế độ nhẹ (Lite mode)** — toggle tắt pháo hoa nền + hoa đào rơi cho máy yếu/mobile, lưu lựa chọn qua `localStorage`.
+- [x] **Chế độ nhẹ (Lite mode)** — nút toggle "Lite Mode" trong menu cài đặt để bật/tắt pháo hoa nền + hoa đào rơi tức thì cho máy yếu/mobile, lưu lựa chọn qua `localStorage`. *File liên quan: `index.html`, `snowflake.js`, `fireworks.js`.*
 - [ ] **QR code tự sinh** cho link lời chúc cá nhân hoá (thay vì ảnh `qr.png` tĩnh) — dễ in/gửi Zalo.
-- [ ] **"Còn X ngày làm là được nghỉ Tết"** — dòng phụ hài hước cạnh countdown chính, tính theo ngày làm việc thực tế.
 
 
 ## 🌟 Tính năng nâng cao (giá trị cao nhưng tốn công hơn, làm sau)

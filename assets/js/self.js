@@ -10,7 +10,7 @@ let app = {
         t.setAttribute("target", "_blank"),
         t.setAttribute("href", "https://tuanflute275.github.io/introduce/"),
         (t.innerHTML = `
-        <div class="hire-me">@tuanflute275<br/>Hire Me!</div>
+        <div class="hire-me">@tuanflute275<br/>Liên hệ tôi!</div>
          <div style="text-align: center;">
          <img src="assets/img/avatar.jpg" alt="avatar">
          <img src="assets/img/qr.png" alt="avatar">

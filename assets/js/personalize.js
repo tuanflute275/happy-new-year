@@ -15,7 +15,7 @@
     if (name) {
       var greeting =
         "Chúc mừng năm mới " + name + "!\n" +
-        "Chúc bạn năm mới 2026 an khang, thịnh vượng và vạn sự như ý.";
+        "Chúc bạn năm mới 2027 an khang, thịnh vượng và vạn sự như ý.";
       arrayList.length = 0;
       arrayList.push(greeting);
     }

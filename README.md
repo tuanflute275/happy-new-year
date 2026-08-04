@@ -1,12 +1,12 @@
-# 🎉 Happy New Year 2026 — Landing Page
+# 🎉 Happy New Year 2027 — Landing Page
 
 Landing page chúc mừng năm mới (Tết Nguyên Đán) được xây dựng bằng HTML/CSS/JavaScript thuần, không cần build tool hay framework. Trang gồm hiệu ứng đếm ngược sang năm mới, pháo hoa canvas, hoa rơi (hoa đào), đèn lồng, rồng, nhạc nền Tết và một trang pháo hoa tương tác riêng.
 
-**Demo:** https://happy-new-year-2026-iota.vercel.app/
+**Demo:** https://happy-new-year-2027-iota.vercel.app/
 
 ## ✨ Tính năng
 
-- **Đếm ngược năm mới** (`count_down.js`): đếm ngược tới thời điểm mốc (`17/02/2026`), hiển thị số ngày/giờ/phút/giây còn lại với hiệu ứng lật số bằng GSAP (TweenMax).
+- **Đếm ngược năm mới** (`count_down.js`): đếm ngược tới thời điểm mốc (`17/02/2027`), hiển thị số ngày/giờ/phút/giây còn lại với hiệu ứng lật số bằng GSAP (TweenMax).
 - **Hiệu ứng chữ máy đánh chữ** (`script.js`): hiển thị lời chúc năm mới ngẫu nhiên (chọn từ danh sách `arrayList` khai báo trong `index.html`), tự gõ ra và xoá đi liên tục.
 - **Pháo hoa nền** (`fireworks.js` + canvas `trails-canvas` / `main-canvas`): pháo hoa tự động bắn nền trong trang chủ.
 - **Trang pháo hoa tương tác riêng** (`firework.html` + `scriptWatch.js`): mô phỏng pháo hoa đầy đủ tính năng (chọn loại/kích cỡ shell, chất lượng, chế độ finale, chụp phơi sáng, fullscreen...), mở qua menu cài đặt hoặc truy cập trực tiếp.

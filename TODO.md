@@ -31,7 +31,7 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 - [ ] **Bản dành cho công ty/nhóm** — tuỳ biến logo, tên, câu chúc theo thương hiệu riêng.
 - [ ] **Nhắc giao thừa qua Web Push** — nút "nhắc tôi lúc giao thừa", gửi thông báo trình duyệt đúng lúc (cần Service Worker).
 - [ ] **PWA (Add to Home Screen)** — cache static assets, mở lại nhanh, lưu như một thiệp Tết trên màn hình chính.
-- [ ] **Series các bản Tết theo năm** — liên kết các bản Tết 2025/2026/2027... thành một "album" theo năm.
+- [ ] **Series các bản Tết theo năm** — liên kết các bản Tết 2025/2027/2027... thành một "album" theo năm.
 - [ ] **Analytics đơn giản** (Plausible/GA) — biết được bao nhiêu người mở link thiệp (cần tài khoản dịch vụ ngoài).
 
 ---
@@ -45,7 +45,7 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 - [ ] **Sửa `<html lang="en">` → `lang="vi"`** (cả `index.html` và `firework.html`) — nội dung toàn tiếng Việt.
 - [ ] **Thêm `alt`** cho tất cả `<img>` trong `index.html` (đèn lồng, rồng, banner...) — thiếu hoàn toàn hiện tại.
 - [ ] **Tự host 3 script pháo hoa** (`fscreen.js`, `Stage.js`, `MyMath.js`) thay vì phụ thuộc một bucket S3 cá nhân bên ngoài — tránh single point of failure nếu bucket đó offline.
-- [ ] **Sửa nội dung OG meta sai** — mô tả "Giáp Thìn 2026" trong `index.html` (dòng 11) là sai (Giáp Thìn là 2024), cần cập nhật đúng theo năm/con giáp hiện tại.
+- [ ] **Sửa nội dung OG meta sai** — mô tả "Giáp Thìn 2027" trong `index.html` (dòng 11) là sai (Giáp Thìn là 2024), cần cập nhật đúng theo năm/con giáp hiện tại.
 - [ ] **Tối ưu file nhạc** — các file mp3 hiện ~3–4MB/bài (tổng ~27MB), nên nén hoặc chuyển bitrate thấp hơn cho tải nhanh trên mobile.
 - [ ] **Thêm loading indicator** khi đang tải nhạc lần đầu (file nặng, có thể mất vài giây trên mạng chậm).
 

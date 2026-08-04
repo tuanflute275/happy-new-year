@@ -52,10 +52,34 @@
       </li>
       <li><a href="javascript:void(0)" id="pause-song">Tạm dừng nhạc</a></li>
       <li><a href="javascript:void(0)" id="toggle-lite">Chế độ nhẹ: TẮT</a></li>
+      <li><a href="javascript:void(0)" id="open-share-panel">🎁 Tạo lời chúc &amp; chia sẻ</a></li>
     </ul>
   </div>
 
-  <!-- Xin xăm đầu năm -->
+  <!-- Share / Tạo lời chúc panel -->
+  <div id="share-overlay" class="hidden">
+    <div id="share-panel">
+      <button type="button" id="share-close" aria-label="Đóng">&times;</button>
+      <h2>🎁 Tạo lời chúc riêng</h2>
+      <p class="share-desc">Nhập tên người nhận để tạo link thiệp cá nhân hoá, sau đó gửi qua Zalo / Messenger / SMS.</p>
+      <div class="share-input-row">
+        <input type="text" id="share-name-input" maxlength="40" placeholder="Ví dụ: Minh, Linh, Anh Tuấn..." autocomplete="off" />
+        <button type="button" id="share-gen-btn">Tạo link</button>
+      </div>
+      <div id="share-result" class="hidden">
+        <div class="share-link-box">
+          <span id="share-link-text"></span>
+          <button type="button" id="share-copy-btn" title="Copy link">📋</button>
+        </div>
+        <div class="share-actions">
+          <button type="button" id="share-native-btn">🚀 Chia sẻ ngay</button>
+          <button type="button" id="share-preview-btn">👁 Xem trước</button>
+        </div>
+        <p id="share-copy-toast" class="hidden">✅ Đã copy link!</p>
+      </div>
+    </div>
+  </div>
+
   <div id="xin-xam-btn" title="Xin xăm đầu năm">
     <span>🧧</span>
   </div>
@@ -273,6 +297,7 @@
       });
     });
   </script>
+  <script src="assets/js/share.js"></script>
 </body>
 
 </html>

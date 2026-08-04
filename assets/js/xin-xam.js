@@ -264,6 +264,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!overlay || !result || !openBtn || !closeBtn || !againBtn) return;
 
+  // Các quẻ tốt sẽ kích hoạt confetti
+  var GOOD_LEVELS = [
+    "Thượng Thượng Đại Cát", "Đại Cát", "Vượng Tài", "Vượng Duyên",
+    "Phát Đạt", "Như Ý", "Cát Tường", "Thăng Hoa", "Tài Lộc Vượng Phát",
+    "Danh Lợi Song Toàn", "Đại Triển Hồng Đồ"
+  ];
+
+  var CONFETTI_COLORS = [
+    "#ff4d4d","#ffcc00","#ff9900","#ff6699","#66ccff","#99ff66","#ff66cc","#ffd700"
+  ];
+
+  function launchConfetti() {
+    // Tạo container nếu chưa có
+    var container = document.getElementById("xinxam-confetti-container");
+    if (!container) {
+      container = document.createElement("div");
+      container.id = "xinxam-confetti-container";
+      document.body.appendChild(container);
+    }
+    container.innerHTML = "";
+
+    for (var i = 0; i < 70; i++) {
+      (function(idx) {
+        setTimeout(function() {
+          var c = document.createElement("div");
+          c.className = "xinxam-confetti-piece";
+          c.style.left = (10 + Math.random() * 80) + "%";
+          c.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+          var size = (6 + Math.random() * 9) + "px";
+          c.style.width = size;
+          c.style.height = size;
+          c.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
+          c.style.animationDuration = (0.9 + Math.random() * 1.4) + "s";
+          c.style.animationDelay = (Math.random() * 0.4) + "s";
+          container.appendChild(c);
+          setTimeout(function() { if (c.parentNode) c.parentNode.removeChild(c); }, 2800);
+        }, idx * 18);
+      })(i);
+    }
+  }
+
   function renderFortune() {
     var fortune = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
     result.innerHTML =
@@ -277,6 +318,11 @@ document.addEventListener("DOMContentLoaded", function () {
     requestAnimationFrame(function () {
       result.classList.add("xin-xam-reveal");
     });
+
+    // Bắn confetti nếu rút được quẻ tốt
+    if (GOOD_LEVELS.indexOf(fortune.level) !== -1) {
+      setTimeout(launchConfetti, 300);
+    }
   }
 
   function openModal() {
@@ -286,6 +332,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function closeModal() {
     overlay.classList.add("hidden");
+    // Dọn confetti khi đóng
+    var container = document.getElementById("xinxam-confetti-container");
+    if (container) container.innerHTML = "";
   }
 
   openBtn.addEventListener("click", openModal);
@@ -298,3 +347,4 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.key === "Escape") closeModal();
   });
 });
+

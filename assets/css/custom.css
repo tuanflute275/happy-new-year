@@ -219,3 +219,29 @@
   }
 }
 
+
+
+/* Confetti cho xin xăm (quẻ tốt) */
+#xinxam-confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 200000;
+  overflow: hidden;
+}
+
+.xinxam-confetti-piece {
+  position: absolute;
+  top: -10px;
+  animation: xinxamConfettiFall linear forwards;
+  opacity: 1;
+}
+
+@keyframes xinxamConfettiFall {
+  0%   { transform: translateY(-10px) rotate(0deg);   opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}

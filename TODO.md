@@ -10,6 +10,7 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 - [x] **Cập nhật mốc đếm ngược Tết 2027** (06/02/2027) — [assets/js/count_down.js](assets/js/count_down.js).
 - [x] **Xin xăm đầu năm** — nút 🧧 nổi góc trái, bấm rút quẻ ngẫu nhiên (8 quẻ) với lời chúc công việc/tình yêu/sức khỏe — [assets/js/xin-xam.js](assets/js/xin-xam.js).
 - [x] **Hiển thị thêm lịch âm** — "Hôm nay: ngày 5/8 (Dương lịch) — ngày 23 tháng Sáu (Âm lịch)" hiện bên dưới tiêu đề và trên countdown, tự động cập nhật mỗi ngày. Dùng thư viện `lunar-javascript` (CDN). *File liên quan: `count_down.js`, `custom.css`, `index.html`.*
+- [x] **Tích hợp confetti vào Xin xăm đầu năm** — thay vì làm lì xì trùng lặp, hiệu ứng confetti đã được tích hợp vào Xin xăm khi người dùng rút được quẻ cát lành (Đại Cát, Thượng Cát...). *File liên quan: `xin-xam.js`, `custom.css`.*
 
 ---
 
@@ -18,7 +19,6 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 - [ ] **Hiệu ứng "Giao thừa"** — khi đếm ngược về 0: tự bắn pháo hoa finale (tận dụng `store` có sẵn trong `fireworks.js`) + hiện banner "Chúc mừng năm mới 2027". *File liên quan: `count_down.js`, `fireworks.js`, file mới `celebrate.js`.*
 - [ ] **Nút "Chia sẻ" + "Tạo lời chúc riêng"** trong menu cài đặt — chia sẻ link hiện tại (Web Share API/copy link), hoặc nhập tên người nhận để tự sinh link `?to=Tên` rồi copy gửi đi. *Phối hợp trực tiếp với tính năng cá nhân hoá đã có.*
 - [ ] **Chế độ nhẹ (Lite mode)** — toggle tắt pháo hoa nền + hoa đào rơi cho máy yếu/mobile, lưu lựa chọn qua `localStorage`.
-- [ ] **Lì xì tương tác** — phong bao đỏ trên màn hình, bấm "mở lì xì" hiện ngẫu nhiên 1 câu chúc/lộc kèm hiệu ứng confetti.
 - [ ] **QR code tự sinh** cho link lời chúc cá nhân hoá (thay vì ảnh `qr.png` tĩnh) — dễ in/gửi Zalo.
 - [ ] **"Còn X ngày làm là được nghỉ Tết"** — dòng phụ hài hước cạnh countdown chính, tính theo ngày làm việc thực tế.
 

@@ -1,49 +1,125 @@
+/* ---- Nút cài đặt (Bánh răng) ---- */
 #setting-btn {
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #fff;
-  padding: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  z-index: 99999999999999999999999;
-  opacity: 0.8;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#setting-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+#setting-btn:hover i {
+  transform: rotate(45deg);
 }
 
 #setting-btn i {
-  font-size: 24px;
-  color: #333;
+  font-size: 20px;
+  color: #fff;
+  transition: transform 0.4s ease;
 }
 
+/* ---- Menu Cài đặt ---- */
 #setting-menu {
   position: fixed;
-  top: 66px;
+  top: 78px;
   right: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  display: none;
-  z-index: 1000;
-  border-radius: 5px;
-  z-index: 999999999999999999999;
-  opacity: 0.8;
+  background: linear-gradient(135deg, rgba(30, 8, 8, 0.94) 0%, rgba(55, 12, 12, 0.9) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 180, 100, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255,255,255,0.06) inset;
+  padding: 16px 10px;
+  border-radius: 18px;
+  z-index: 9999;
+  width: 240px;
+  
+  /* Hiệu ứng trượt và mờ dần */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#setting-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.setting-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 180, 100, 0.85);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 0 12px 10px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 #setting-menu ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 #setting-menu ul li {
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 #setting-menu ul li a {
   text-decoration: none;
-  color: #333;
-  font-weight: bold;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  padding: 10px 14px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+#setting-menu ul li a i {
+  font-size: 0.95rem;
+  width: 18px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s;
+}
+
+#setting-menu ul li a:hover {
+  background: rgba(255, 180, 100, 0.12);
+  color: #ffb464;
+}
+
+#setting-menu ul li a:hover i {
+  color: #ffb464;
 }
 
 .hidden {

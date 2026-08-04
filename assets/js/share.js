@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     openBtn.addEventListener("click", function () {
       // Đóng settings menu trước
       var menu = document.getElementById("setting-menu");
-      if (menu) menu.classList.add("hidden");
+      if (menu) menu.classList.remove("active");
       openPanel();
     });
   }

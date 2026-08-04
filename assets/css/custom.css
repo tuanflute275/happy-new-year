@@ -711,8 +711,103 @@
   transform: scale(0.96);
 }
 
+@media (max-width: 768px) {
+  .year {
+    font-size: 4em !important;
+  }
+  .year2 {
+    font-size: 3.2rem !important;
+  }
+}
+
 @media (max-width: 480px) {
-  #share-panel { padding: 24px 18px 20px; }
-  .share-input-row { flex-direction: column; }
-  .share-actions { flex-direction: column; }
+  /* Fix tiêu đề bị rớt dòng */
+  .year {
+    font-size: 2.8em !important;
+  }
+  .year2 {
+    font-size: 2.2rem !important;
+  }
+
+  /* Nút bánh răng cài đặt */
+  #setting-btn {
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+  }
+  #setting-btn i {
+    font-size: 18px;
+  }
+  #setting-menu {
+    top: 64px;
+    right: 12px;
+    width: 220px;
+  }
+
+  /* Tránh đè nhau dưới đáy: Đưa nút Xin xăm sang góc TRÁI */
+  #xin-xam-wrapper {
+    bottom: 12px;
+    left: 16px;
+    right: auto;
+  }
+  .xinxam-tooltip {
+    left: calc(100% + 10px);
+    right: auto;
+    transform: translateY(-50%) translateX(-8px);
+  }
+  #xin-xam-wrapper:hover .xinxam-tooltip {
+    transform: translateY(-50%) translateX(0);
+  }
+
+  /* Giao diện panel chia sẻ trên mobile */
+  #share-panel {
+    padding: 24px 16px 18px;
+    margin: 10px;
+    max-width: calc(100% - 20px);
+  }
+  #share-panel h2 {
+    font-size: 1.15rem;
+  }
+  .share-desc {
+    font-size: 0.78rem;
+    margin-bottom: 16px;
+  }
+  .share-input-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  #share-name-input,
+  #share-gen-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .share-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .share-actions button {
+    width: 100%;
+  }
+  #share-qrcode-container {
+    padding: 12px;
+    margin: 12px 0 16px;
+  }
+  #share-qrcode {
+    padding: 8px;
+  }
+  #share-qrcode img {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  .qrcode-actions {
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+  #share-qr-download-btn,
+  #share-qr-copy-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

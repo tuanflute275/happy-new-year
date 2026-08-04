@@ -9,6 +9,7 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 - [x] **Cá nhân hoá lời chúc qua URL** (`?to=Tên`) — [assets/js/personalize.js](assets/js/personalize.js). Truy cập `index.html?to=Minh` sẽ hiện "Chúc mừng năm mới Minh" thay vì lời chúc ngẫu nhiên.
 - [x] **Cập nhật mốc đếm ngược Tết 2027** (06/02/2027) — [assets/js/count_down.js](assets/js/count_down.js).
 - [x] **Xin xăm đầu năm** — nút 🧧 nổi góc trái, bấm rút quẻ ngẫu nhiên (8 quẻ) với lời chúc công việc/tình yêu/sức khỏe — [assets/js/xin-xam.js](assets/js/xin-xam.js).
+- [x] **Hiển thị thêm lịch âm** — "Hôm nay: ngày 5/8 (Dương lịch) — ngày 23 tháng Sáu (Âm lịch)" hiện bên dưới tiêu đề và trên countdown, tự động cập nhật mỗi ngày. Dùng thư viện `lunar-javascript` (CDN). *File liên quan: `count_down.js`, `custom.css`, `index.html`.*
 
 ---
 
@@ -20,7 +21,7 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 - [ ] **Lì xì tương tác** — phong bao đỏ trên màn hình, bấm "mở lì xì" hiện ngẫu nhiên 1 câu chúc/lộc kèm hiệu ứng confetti.
 - [ ] **QR code tự sinh** cho link lời chúc cá nhân hoá (thay vì ảnh `qr.png` tĩnh) — dễ in/gửi Zalo.
 - [ ] **"Còn X ngày làm là được nghỉ Tết"** — dòng phụ hài hước cạnh countdown chính, tính theo ngày làm việc thực tế.
-- [ ] **Hiển thị thêm lịch âm** — "Hôm nay là ngày ... tháng Chạp" bên cạnh đếm ngược dương lịch.
+
 
 ## 🌟 Tính năng nâng cao (giá trị cao nhưng tốn công hơn, làm sau)
 

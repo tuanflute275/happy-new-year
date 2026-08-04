@@ -51,21 +51,57 @@
     animate: function () {
       let t = e.year("year year1");
       e.year("year year2");
+      
+      // Get lunar date for today
+      let lunarText = "";
+      if (typeof Solar !== 'undefined') {
+        try {
+          let todayDate = new Date();
+          let sDay = todayDate.getDate();
+          let sMonth = todayDate.getMonth() + 1;
+          let solarObj = Solar.fromDate(todayDate);
+          let lunarObj = solarObj.getLunar();
+          let lDay = lunarObj.getDay();
+          let lMonth = lunarObj.getMonth();
+          let absMonth = Math.abs(lMonth);
+          const monthNames = {
+            1: "Giêng", 2: "Hai", 3: "Ba", 4: "Tư", 5: "Năm", 6: "Sáu",
+            7: "Bảy", 8: "Tám", 9: "Chín", 10: "Mười", 11: "Một", 12: "Chạp"
+          };
+          let mName = monthNames[absMonth] || absMonth.toString();
+          if (lMonth < 0) {
+            mName += " (nhuận)";
+          }
+          lunarText = `Hôm nay: ngày ${sDay}/${sMonth} (Dương lịch) — ngày ${lDay} tháng ${mName} (Âm lịch)`;
+        } catch (err) {
+          console.error("Error calculating lunar date:", err);
+          lunarText = "Không thể tính lịch âm";
+        }
+      } else {
+        lunarText = "Không thể tải lịch âm";
+      }
+      
+      let lunarEl = e.element(e.newYear, "div", "lunar-date-container", lunarText);
+      lunarEl.style.top = "100px";
+      lunarEl.style.opacity = 0;
+
       let n = e.element(e.newYear, "div", "controls"),
         r = e.element(n, "div", "control days"),
         o = e.element(n, "div", "control hours"),
         l = e.element(n, "div", "control minutes"),
         $ = e.element(n, "div", "control seconds");
-      (e.controls = { controls: n, days: r, hours: o, minutes: l, seconds: $ }),
-        e.element(
-          e.newYear,
-          "div",
-          "centeredBox",
-          `
-            <pre id="typewriter" data-array=""></pre>
+      (e.controls = { controls: n, days: r, hours: o, minutes: l, seconds: $ });
+      
+      e.element(
+        e.newYear,
+        "div",
+        "centeredBox",
         `
-        ),
-        e.render();
+          <pre id="typewriter" data-array=""></pre>
+      `
+      );
+
+      e.render();
       let a = e.element(t, "div", "triangles"),
         i = new TimelineMax(),
         s = [];
@@ -108,6 +144,7 @@
           .to(o, 0.5, { top: 0, opacity: 1 }, 0.25)
           .to(l, 0.5, { top: 0, opacity: 1 }, 0.5)
           .to($, 0.5, { top: 0, opacity: 1 }, 0.75)
+          .to(lunarEl, 0.5, { top: 0, opacity: 1 }, 1.0)
           .set(a, { opacity: 1 }, 3)
           .add(i, 3)
       );

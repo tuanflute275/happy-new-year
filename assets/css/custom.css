@@ -175,3 +175,47 @@
     font-size: 1.15rem;
   }
 }
+
+.lunar-date-container {
+  display: inline-block;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 8px 22px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+  letter-spacing: 0.5px;
+  animation: pulseLunar 4s infinite ease-in-out;
+  pointer-events: auto; /* Allow hover if needed */
+  transition: all 0.3s ease;
+  opacity: 0;
+  position: relative;
+}
+
+.lunar-date-container:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 6px 25px rgba(255, 215, 0, 0.15);
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+  transform: scale(1.03);
+}
+
+@keyframes pulseLunar {
+  0%, 100% {
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+    box-shadow: 0 4px 25px rgba(255, 215, 0, 0.1);
+  }
+}
+

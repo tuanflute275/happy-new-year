@@ -75,6 +75,14 @@
           <span id="share-link-text"></span>
           <button type="button" id="share-copy-btn" title="Copy link"><i class="fa-regular fa-clone"></i></button>
         </div>
+        <div id="share-qrcode-container">
+          <div id="share-qrcode"></div>
+          <p class="qrcode-hint">Quét mã QR để mở trực tiếp trên điện thoại</p>
+          <div class="qrcode-actions">
+            <button type="button" id="share-qr-download-btn"><i class="fa-solid fa-download"></i> Tải ảnh QR</button>
+            <button type="button" id="share-qr-copy-btn"><i class="fa-regular fa-copy"></i> Sao chép QR</button>
+          </div>
+        </div>
         <div class="share-actions">
           <button type="button" id="share-native-btn"><i class="fa-solid fa-paper-plane" style="margin-right: 6px;"></i>Chia sẻ ngay</button>
           <button type="button" id="share-preview-btn"><i class="fa-regular fa-eye" style="margin-right: 6px;"></i>Xem trước</button>
@@ -304,6 +312,7 @@
       });
     });
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="assets/js/share.js"></script>
 </body>
 

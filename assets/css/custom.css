@@ -646,6 +646,71 @@
 }
 #share-copy-toast.hidden { display: none; }
 
+/* QR Code tự sinh trong Share panel */
+#share-qrcode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px 0 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+#share-qrcode {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+#share-qrcode img {
+  display: block;
+}
+
+.qrcode-hint {
+  margin: 10px 0 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.qrcode-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+#share-qr-download-btn,
+#share-qr-copy-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(255, 255, 255, 0.3) !important;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+#share-qr-download-btn:hover,
+#share-qr-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #ffb464 !important;
+  color: #ffb464;
+}
+
+#share-qr-download-btn:active,
+#share-qr-copy-btn:active {
+  transform: scale(0.96);
+}
+
 @media (max-width: 480px) {
   #share-panel { padding: 24px 18px 20px; }
   .share-input-row { flex-direction: column; }

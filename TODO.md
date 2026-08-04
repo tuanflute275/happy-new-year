@@ -19,7 +19,7 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 - [ ] **Hiệu ứng "Giao thừa"** — khi đếm ngược về 0: tự bắn pháo hoa finale (tận dụng `store` có sẵn trong `fireworks.js`) + hiện banner "Chúc mừng năm mới 2027". *File liên quan: `count_down.js`, `fireworks.js`, file mới `celebrate.js`.*
 - [x] **Nút "Chia sẻ" + "Tạo lời chúc riêng"** trong menu cài đặt — cho phép nhập tên người nhận để tự sinh link `?to=Tên`, copy link hoặc chia sẻ trực tiếp (Web Share API) và hỗ trợ xem trước. *File liên quan: `index.html`, `custom.css`, `share.js`.*
 - [x] **Chế độ nhẹ (Lite mode)** — nút toggle "Lite Mode" trong menu cài đặt để bật/tắt pháo hoa nền + hoa đào rơi tức thì cho máy yếu/mobile, lưu lựa chọn qua `localStorage`. *File liên quan: `index.html`, `snowflake.js`, `fireworks.js`.*
-- [ ] **QR code tự sinh** cho link lời chúc cá nhân hoá (thay vì ảnh `qr.png` tĩnh) — dễ in/gửi Zalo.
+- [x] **QR code tự sinh** cho link lời chúc cá nhân hoá (thay vì ảnh `qr.png` tĩnh) — tự sinh bằng thư viện `qrcode.js` qua CDN mỗi khi tạo link thành công, dễ quét in/gửi Zalo. *File liên quan: `index.html`, `share.js`, `custom.css`.*
 
 
 ## 🌟 Tính năng nâng cao (giá trị cao nhưng tốn công hơn, làm sau)

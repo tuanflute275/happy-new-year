@@ -5,7 +5,7 @@
       return Math.floor(Math.random() * (t - e + 1) + e);
     },
     get period() {
-      let dateString = "17/02/2026";
+      let dateString = "06/02/2027";
       let parts = dateString.split("/"); 
       let formattedDate = `${parts[1]}/${parts[0]}/${parts[2]}`; 
       let t = new Date(formattedDate).getTime();

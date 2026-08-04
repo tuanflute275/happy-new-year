@@ -153,10 +153,18 @@
   display: none;
 }
 
-#xin-xam-btn {
+/* Wrapper cho nút và tooltip */
+#xin-xam-wrapper {
   position: fixed;
   bottom: 90px;
   right: 20px;
+  z-index: 9999;
+  /* Tổ hợp animation nhấp nhô chuyển lên wrapper để tooltip nhấp nhô theo đồng bộ */
+  animation: xinXamFloat 3s ease-in-out infinite;
+}
+
+#xin-xam-btn {
+  position: relative;
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -167,13 +175,10 @@
   justify-content: center;
   font-size: 28px;
   cursor: pointer;
-  z-index: 9999;
   overflow: hidden; /* Để dải shimmer không tràn ra ngoài */
   
-  /* Tổ hợp animation: vừa nhấp nhô nhẹ, vừa tỏa hào quang, vừa quét dải sáng */
-  animation: 
-    xinXamFloat 3s ease-in-out infinite,
-    xinXamGlow 2s infinite;
+  /* Chỉ tỏa hào quang ở nút */
+  animation: xinXamGlow 2s infinite;
   
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -229,7 +234,7 @@
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-#xin-xam-btn:hover .xinxam-tooltip {
+#xin-xam-wrapper:hover .xinxam-tooltip {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
 }

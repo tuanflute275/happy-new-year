@@ -1,37 +1,148 @@
-@import url(https://fonts.googleapis.com/css2?family=Vujahday+Script&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap);
 
+/* ---- Contact Widget ---- */
 .avnendv-ad {
-    position: fixed;
-    right: 5px;
-    bottom: 5px;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-direction: column;
-    align-items: center;
-    font-family: "Vujahday Script", cursive;
-    display: block !important;
-    font-size: 20px;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, .15);
-    padding: 10px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: #000;
-    z-index: 1000
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10000;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50px;
+  padding: 8px 16px 8px 8px;
+
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255,255,255,0.1) inset;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  max-width: 280px;
 }
 
-.avnendv-ad,
-.avnendv-ad * {
-    box-sizing: border-box
+.avnendv-ad:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+  background: rgba(255, 255, 255, 0.18);
 }
 
-.avnendv-ad img {
-    margin-top: 20px;
-    width: 50px;
-    display: inline-block
+/* Avatar */
+.ad-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
 }
 
-.avnendv-ad .hire-me,
-.avnendv-ad div:first-child {
-    text-align: center
+.ad-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Online dot */
+.ad-online-dot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  background: #4ade80;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.4);
+  animation: adPulse 2s ease-in-out infinite;
+}
+
+@keyframes adPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(74, 222, 128, 0); }
+}
+
+/* Info text */
+.ad-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.ad-name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.ad-tagline {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+}
+
+/* QR popup — hiện khi hover */
+.ad-qr-popup {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  background: rgba(30, 10, 10, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 14px;
+  text-align: center;
+  min-width: 140px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+
+  opacity: 0;
+  transform: translateY(8px) scale(0.95);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.avnendv-ad:hover .ad-qr-popup {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.ad-qr-popup img {
+  width: 110px;
+  height: 110px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+.ad-qr-popup p {
+  margin-top: 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive mobile */
+@media (max-width: 480px) {
+  .avnendv-ad {
+    padding: 6px 12px 6px 6px;
+    gap: 8px;
+    right: 10px;
+    bottom: 10px;
+  }
+  .ad-avatar { width: 36px; height: 36px; }
+  .ad-name   { font-size: 0.75rem; }
+  .ad-tagline { font-size: 0.65rem; }
 }

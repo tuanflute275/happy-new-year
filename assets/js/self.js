@@ -6,16 +6,23 @@ let app = {
     if (app.has(document.querySelector("body"))) {
       let t = document.createElement("a");
       (t.className = "avnendv-ad"),
-        (t.style.display = "none"),
         t.setAttribute("target", "_blank"),
         t.setAttribute("href", "https://tuanflute275.github.io/introduce/"),
         (t.innerHTML = `
-        <div class="hire-me">@tuanflute275<br/>Liên hệ tôi!</div>
-         <div style="text-align: center;">
-         <img src="assets/img/avatar.jpg" alt="avatar">
-         <img src="assets/img/qr.png" alt="avatar">
-         </div>
-      `),
+          <div class="ad-avatar-wrap">
+            <img class="ad-avatar" src="assets/img/avatar.jpg" alt="avatar">
+            <span class="ad-online-dot"></span>
+          </div>
+          <div class="ad-info">
+            <span class="ad-name">@tuanflute275</span>
+            <span class="ad-tagline">Gửi chút duyên, nhận may mắn! 🍀✨</span>
+          </div>
+          <div class="ad-qr-popup">
+            <img src="assets/img/qr.png" alt="QR Code">
+            <p>Quét lẹ đi, lì xì liền tay! 😄🤑</p>
+          </div>
+        `),
+        t.setAttribute("title", "Xem profile của tôi"),
         document.querySelector("body").appendChild(t);
     } else setTimeout(app.check, 100);
   },

@@ -59,8 +59,8 @@
   <!-- Share / Tạo lời chúc panel -->
   <div id="share-overlay" class="hidden">
     <div id="share-panel">
-      <button type="button" id="share-close" aria-label="Đóng">&times;</button>
-      <h2>🎁 Tạo lời chúc riêng</h2>
+      <button type="button" id="share-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+      <h2><i class="fa-solid fa-gift" style="color: #ffb464; margin-right: 8px;"></i>Tạo lời chúc riêng</h2>
       <p class="share-desc">Nhập tên người nhận để tạo link thiệp cá nhân hoá, sau đó gửi qua Zalo / Messenger / SMS.</p>
       <div class="share-input-row">
         <input type="text" id="share-name-input" maxlength="40" placeholder="Ví dụ: Minh, Linh, Anh Tuấn..." autocomplete="off" />
@@ -69,13 +69,13 @@
       <div id="share-result" class="hidden">
         <div class="share-link-box">
           <span id="share-link-text"></span>
-          <button type="button" id="share-copy-btn" title="Copy link">📋</button>
+          <button type="button" id="share-copy-btn" title="Copy link"><i class="fa-regular fa-clone"></i></button>
         </div>
         <div class="share-actions">
-          <button type="button" id="share-native-btn">🚀 Chia sẻ ngay</button>
-          <button type="button" id="share-preview-btn">👁 Xem trước</button>
+          <button type="button" id="share-native-btn"><i class="fa-solid fa-paper-plane" style="margin-right: 6px;"></i>Chia sẻ ngay</button>
+          <button type="button" id="share-preview-btn"><i class="fa-regular fa-eye" style="margin-right: 6px;"></i>Xem trước</button>
         </div>
-        <p id="share-copy-toast" class="hidden">✅ Đã copy link!</p>
+        <p id="share-copy-toast" class="hidden"><i class="fa-solid fa-circle-check" style="margin-right: 5px;"></i>Đã copy link thành công!</p>
       </div>
     </div>
   </div>

@@ -857,6 +857,21 @@
     transform: translateY(-50%) translateX(0);
   }
 
+  /* Đập lợn xếp ngay trên Xin xăm, cùng góc trái */
+  #minigame-wrapper {
+    bottom: 78px;
+    left: 16px;
+    right: auto;
+  }
+  .minigame-tooltip {
+    left: calc(100% + 10px);
+    right: auto;
+    transform: translateY(-50%) translateX(-8px);
+  }
+  #minigame-wrapper:hover .minigame-tooltip {
+    transform: translateY(-50%) translateX(0);
+  }
+
   /* Giao diện panel chia sẻ trên mobile */
   #share-panel {
     padding: 24px 16px 18px;
@@ -906,5 +921,280 @@
   #share-qr-copy-btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* ============================================
+   MINI-GAME — Đập lợn tiết kiệm
+   ============================================ */
+#minigame-wrapper {
+  position: fixed;
+  bottom: 160px;
+  right: 20px;
+  z-index: 9999;
+  animation: xinXamFloat 3s ease-in-out infinite;
+}
+
+#minigame-btn {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e75480 0%, #b03a5b 100%);
+  border: 2px solid rgba(255, 200, 220, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  animation: xinXamGlow 2s infinite;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#minigame-btn:hover {
+  transform: scale(1.15) rotate(-8deg);
+  border-color: rgba(255, 200, 220, 1);
+  box-shadow: 0 0 25px rgba(231, 84, 128, 0.7);
+}
+
+#minigame-btn:active {
+  transform: scale(0.95);
+}
+
+.minigame-tooltip {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  background: rgba(30, 8, 8, 0.9);
+  border: 1px solid rgba(255, 180, 100, 0.25);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#minigame-wrapper:hover .minigame-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+#minigame-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
+  padding: 20px;
+}
+
+#minigame-overlay.hidden {
+  display: none;
+}
+
+#minigame-card {
+  background: linear-gradient(180deg, #fffaf0, #fff1d6);
+  border: 3px solid #e75480;
+  border-radius: 16px;
+  padding: 28px 24px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+#minigame-piggy {
+  font-size: 4.5rem;
+  line-height: 1;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.minigame-shake {
+  animation: minigameShake 0.3s ease;
+}
+
+@keyframes minigameShake {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-8deg) scale(1.05); }
+  75% { transform: rotate(8deg) scale(1.05); }
+}
+
+#minigame-loc {
+  font-size: 1.05rem;
+  color: #7a3a2a;
+  margin-bottom: 10px;
+}
+
+.minigame-tier {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #b03a5b;
+  margin-bottom: 6px;
+}
+
+.minigame-desc {
+  color: #333;
+  font-style: italic;
+  margin-bottom: 4px;
+}
+
+/* Hiệu ứng "wow" khi heo vỡ */
+.minigame-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 223, 0, 0.85) 0%, rgba(255, 223, 0, 0) 70%);
+  z-index: 260000;
+  pointer-events: none;
+  animation: minigameFlash 0.55s ease-out forwards;
+}
+
+@keyframes minigameFlash {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.minigame-card-shake {
+  animation: minigameCardShake 0.4s ease;
+}
+
+@keyframes minigameCardShake {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-6px, 2px); }
+  40% { transform: translate(6px, -2px); }
+  60% { transform: translate(-4px, 1px); }
+  80% { transform: translate(4px, -1px); }
+}
+
+.minigame-card-celebrate {
+  animation: minigameCardGlow 1s ease;
+}
+
+@keyframes minigameCardGlow {
+  0% { box-shadow: 0 0 0 rgba(255, 215, 0, 0); }
+  30% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.9); }
+  100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+}
+
+.minigame-burst-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #e75480;
+  margin-bottom: 10px;
+  animation: minigameTitlePop 0.5s ease;
+}
+
+@keyframes minigameTitlePop {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.minigame-badge-wrap {
+  position: relative;
+  display: inline-block;
+  font-size: 4.5rem;
+  animation: minigameBadgeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes minigameBadgeIn {
+  0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.minigame-badge-medal {
+  position: absolute;
+  bottom: -4px;
+  right: -14px;
+  font-size: 2.2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  animation: minigameBadgePop 0.4s 0.3s ease backwards;
+}
+
+@keyframes minigameBadgePop {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+.minigame-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.minigame-actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#minigame-hit {
+  background-color: #e75480;
+  color: #fff;
+}
+
+#minigame-again {
+  background-color: #d4a017;
+  color: #fff;
+}
+
+#minigame-close {
+  background-color: #eee;
+  color: #333;
+}
+
+#minigame-coin-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 200000;
+  overflow: hidden;
+}
+
+.minigame-coin-piece {
+  position: absolute;
+  top: -30px;
+  animation: minigameCoinFall linear forwards;
+}
+
+@keyframes minigameCoinFall {
+  0% { transform: translateY(-30px) rotate(0deg); opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+@media (max-width: 480px) {
+  #minigame-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+  #minigame-card {
+    padding: 20px 16px;
+  }
+  #minigame-piggy {
+    font-size: 3.5rem;
   }
 }

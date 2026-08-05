@@ -26,7 +26,7 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 ## 🌟 Tính năng nâng cao (giá trị cao nhưng tốn công hơn, làm sau)
 
 - [ ] **Pháo hoa đồng bộ nhịp nhạc** — dùng Web Audio API phân tích beat bài đang phát, đồng bộ cường độ bắn pháo hoa theo nhạc.
-- [ ] **Mini-game chờ giao thừa** — ví dụ "đập lợn tiết kiệm", "gói bánh chưng" (game rất nhẹ, giữ chân khách khi chờ đếm ngược).
+- [x] **Mini-game chờ giao thừa** — "Đập lợn tiết kiệm" 🐷: bấm nút nổi giữa-trái, đập heo liên tục (8-11 lần bí mật/lượt) để nhận lộc ngẫu nhiên, đập vỡ hiện tổng lộc + xếp hạng heo (Heo Đất/Bạc/Vàng/Kim Cương) kèm hiệu ứng tiền rơi, có nút đập lại. Đã test: vị trí không đè lên kỳ lân/đèn lồng/nút khác, luồng chơi + reset + đóng đều đúng. *File liên quan: `assets/js/minigame.js` (mới), `custom.css`, `index.html`.*
 - [ ] **Avatar cá nhân hoá** — cho phép upload/crop ảnh nhỏ hiển thị cùng lời chúc riêng (đi kèm `?to=Tên`).
 - [ ] **Chuyển ngôn ngữ VI/EN** — phục vụ khách quốc tế xem trang.
 - [ ] **Bản dành cho công ty/nhóm** — tuỳ biến logo, tên, câu chúc theo thương hiệu riêng.

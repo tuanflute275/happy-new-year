@@ -108,6 +108,26 @@
     </div>
   </div>
 
+  <!-- Mini-game: Đập lợn tiết kiệm -->
+  <div id="minigame-wrapper">
+    <div id="minigame-btn">
+      <span>🐷</span>
+    </div>
+    <span class="minigame-tooltip">Đập lợn tiết kiệm</span>
+  </div>
+  <div id="minigame-overlay" class="hidden">
+    <div id="minigame-card">
+      <div id="minigame-piggy">🐷</div>
+      <div id="minigame-loc">Lộc hiện tại: <strong>0</strong></div>
+      <div id="minigame-result"></div>
+      <div class="minigame-actions">
+        <button type="button" id="minigame-hit">Đập heo! 🔨</button>
+        <button type="button" id="minigame-again" class="hidden">Đập lại</button>
+        <button type="button" id="minigame-close">Đóng</button>
+      </div>
+    </div>
+  </div>
+
   <!-- view canvas -->
   <canvas id="canvasSnow"></canvas>
 
@@ -152,6 +172,7 @@
   <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.min.js"></script>
   <script src="assets/js/count_down.js"></script>
   <script src="assets/js/xin-xam.js"></script>
+  <script src="assets/js/minigame.js"></script>
   <script src="assets/js/fireworks.js"></script>
   <script src="assets/js/celebrate.js"></script>
   <script src="assets/js/snowflake.js"></script>

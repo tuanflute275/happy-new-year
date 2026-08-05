@@ -9,7 +9,7 @@ var AUDIO_PLAYLIST = [
   { file: "assets/audio/Dau-chan-dau-tien.mp3", title: "Dấu Chân Đầu Tiên" },
   { file: "assets/audio/Di-Ve-Nha-Den-JustaTee.mp3", title: "Đi Về Nhà - Đen, JustaTee" },
   { file: "assets/audio/DiDeTroVe-SoobinHoangSon.mp3", title: "Đi Để Trở Về - Soobin Hoàng Sơn" },
-  { file: "assets/audio/Lam-gi-phai-hot.mp3", title: "Làm Gì Phải Hot" },
+  { file: "assets/audio/Lam-gi-phai-hot.mp3", title: "Làm Gì Phải Hốt" },
   { file: "assets/audio/Mot-nam-moi-binh-an.mp3", title: "Một Năm Mới Bình An" },
   { file: "assets/audio/NamQuaDaLamGi.mp3", title: "Năm Qua Đã Làm Gì" },
   { file: "assets/audio/NgayXuanLongPhungSumVay.mp3", title: "Ngày Xuân Long Phụng Sum Vầy" },

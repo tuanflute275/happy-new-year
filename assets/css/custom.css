@@ -164,6 +164,24 @@
   z-index: 1;
 }
 
+/* Kỳ lân bấm được: mở lại pointer-events (bị chặn bởi .holder{pointer-events:none})
+   để bấm vào phát tiếng múa lân + nhún nhảy nhẹ. */
+.group__common.dragon {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.group__common.dragon.dragon-dance {
+  animation: dragonDance 0.5s ease;
+}
+
+@keyframes dragonDance {
+  0%, 100% { transform: rotateZ(10deg) scale(1); }
+  25% { transform: rotateZ(-2deg) scale(1.08); }
+  50% { transform: rotateZ(14deg) scale(0.96); }
+  75% { transform: rotateZ(4deg) scale(1.05); }
+}
+
 /* Thêm đệm 2 bên để câu chúc dài không lấn vào cột nút nổi (xin xăm, đập
    lợn, gói bánh chưng) ở góc phải màn hình. */
 .centeredBox {

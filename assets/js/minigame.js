@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
     shakeCard();
     countUpLoc(state.totalLoc);
     launchCoinBurst();
+    if (window.SFX) SFX.play("break");
   }
 
   function handleHit() {
@@ -143,6 +144,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (state.hits >= state.needed) {
       state.broken = true;
       renderBroken();
+    } else if (window.SFX) {
+      SFX.play("hit");
     }
   }
 

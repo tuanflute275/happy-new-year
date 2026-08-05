@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       againBtn.classList.remove("hidden");
       launchLeafBurst();
+      if (window.SFX) SFX.play("success");
     }, 700);
   }
 
@@ -128,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (state.done || state.stepIndex >= STEPS.length) return;
     state.stepIndex++;
     renderStack();
+    if (window.SFX) SFX.play("pop");
     if (state.stepIndex >= STEPS.length) {
       state.done = true;
       renderDone();

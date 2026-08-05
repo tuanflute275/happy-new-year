@@ -319,9 +319,14 @@ document.addEventListener("DOMContentLoaded", function () {
       result.classList.add("xin-xam-reveal");
     });
 
-    // Bắn confetti nếu rút được quẻ tốt
+    if (window.SFX) SFX.play("pop");
+
+    // Bắn confetti + tiếng tiền lì xì nếu rút được quẻ tốt
     if (GOOD_LEVELS.indexOf(fortune.level) !== -1) {
       setTimeout(launchConfetti, 300);
+      setTimeout(function () {
+        if (window.SFX) SFX.play("coin");
+      }, 300);
     }
   }
 

@@ -1,0 +1,16 @@
+{
+  "name": "happy-new-year",
+  "version": "1.0.0",
+  "description": "Landing page chúc mừng năm mới (Tết Nguyên Đán) được xây dựng bằng HTML/CSS/JavaScript thuần, không cần build tool hay framework. Trang gồm hiệu ứng đếm ngược sang năm mới, pháo hoa canvas, hoa rơi (hoa đào), đèn lồng, rồng, nhạc nền Tết và một trang pháo hoa tương tác riêng.",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "clean-css": "^5.3.3",
+    "javascript-obfuscator": "^5.5.0"
+  }
+}

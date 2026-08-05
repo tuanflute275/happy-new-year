@@ -15,6 +15,7 @@ Landing page chúc mừng năm mới (Tết Nguyên Đán) được xây dựng 
 - **Menu cài đặt** (`custom.js` + `#setting-btn`, `#setting-menu`): đổi bài hát, play/pause nhạc, mở trang pháo hoa toàn màn hình.
 - **Trang trí Tết**: đèn lồng, rồng, banner "tết xum vầy" hiển thị bằng ảnh trong `assets/img/`.
 - **SEO / Social sharing**: đầy đủ Open Graph & Twitter Card meta tags trong `index.html`.
+- **Ghi log & Dashboard** (`assets/js/tracker.js` + `api/*.js` + `dashboard.html`): ghi lượt truy cập, lượt mở link cá nhân hoá, tương tác tính năng vào Turso (SQLite serverless); xem log tại `/dashboard.html` (yêu cầu đăng nhập). Xem chi tiết ở mục [🔐 Ghi log & Dashboard](#-ghi-log--dashboard-turso) dưới đây.
 
 ## 📁 Cấu trúc thư mục
 
@@ -22,6 +23,15 @@ Landing page chúc mừng năm mới (Tết Nguyên Đán) được xây dựng 
 happy-new-year/
 ├── index.html              # Trang chính: countdown, pháo hoa nền, nhạc, trang trí Tết
 ├── firework.html            # Trang pháo hoa tương tác đầy đủ tính năng (mở từ menu cài đặt)
+├── dashboard.html            # Dashboard xem log (yêu cầu đăng nhập)
+├── api/                      # Vercel Serverless Functions
+│   ├── _db.js                 # Turso client + schema + insert/query log
+│   ├── _auth.js                # Ký/verify cookie session (HMAC-SHA256, stateless)
+│   ├── log.js                  # POST — ghi log (public, không cần đăng nhập)
+│   ├── logs.js                 # GET — đọc log cho dashboard (yêu cầu session hợp lệ)
+│   └── auth/
+│       ├── login.js             # POST — đăng nhập, cấp cookie session
+│       └── logout.js            # POST — xoá cookie session
 ├── assets/
 │   ├── audio/               # Nhạc Tết (mp3), phát ngẫu nhiên/nối tiếp
 │   ├── css/
@@ -30,7 +40,8 @@ happy-new-year/
 │   │   ├── count_down.css     # Style khối đếm ngược & hiệu ứng chữ
 │   │   ├── self.css           # Style hiệu ứng typewriter
 │   │   ├── fireworks.css      # Style canvas pháo hoa nền (index.html)
-│   │   └── fireworkWatch.css  # Style trang pháo hoa tương tác (firework.html)
+│   │   ├── fireworkWatch.css  # Style trang pháo hoa tương tác (firework.html)
+│   │   └── dashboard.css      # Style trang dashboard xem log
 │   ├── js/
 │   │   ├── count_down.js      # Logic đếm ngược + animation số bằng GSAP, tạo khối #typewriter
 │   │   ├── script.js          # Hiệu ứng typewriter (gõ/xoá lời chúc), cần arrayList + TIME_WRITER
@@ -38,8 +49,11 @@ happy-new-year/
 │   │   ├── custom.js          # Toggle menu cài đặt
 │   │   ├── fireworks.js       # Engine pháo hoa nền cho index.html
 │   │   ├── scriptWatch.js     # Engine pháo hoa đầy đủ tính năng cho firework.html
-│   │   └── snowflake.js       # Hiệu ứng hoa đào rơi trên canvas
+│   │   ├── snowflake.js       # Hiệu ứng hoa đào rơi trên canvas
+│   │   ├── tracker.js         # Ghi log truy cập/tương tác, gửi về /api/log
+│   │   └── dashboard.js       # Logic trang dashboard (login, filter, phân trang)
 │   └── img/                  # Logo, avatar, QR, ảnh trang trí (đèn lồng, rồng, hoa đào...)
+├── .env.example              # Mẫu biến môi trường (Turso + dashboard) — copy thành .env
 └── .vscode/settings.json     # Cấu hình Live Server (port 5501)
 ```
 
@@ -73,6 +87,48 @@ Sau đó mở `http://localhost:5500/index.html`.
 - **Đổi ảnh trang trí / favicon / OG image**: thay file trong `assets/img/` và cập nhật thẻ `<meta>` tương ứng ở đầu `index.html`.
 - **Tuỳ biến pháo hoa (firework.html)**: dùng menu **Settings** (icon bánh răng) ngay trên trang để chọn loại/kích thước shell, chất lượng, hiệu ứng phơi sáng, chế độ finale...
 
+## 🔐 Ghi log & Dashboard (Turso)
+
+Trang ghi lại 3 loại sự kiện — lượt truy cập (time/IP/user-agent), lượt mở link cá nhân hoá (`?to=Tên`), tương tác tính năng (xin xăm, đổi nhạc, chia sẻ, lite mode...) — vào **Turso** (SQLite serverless, dữ liệu persistent qua các lần deploy). Xem log tại `/dashboard.html`, yêu cầu đăng nhập.
+
+### 1. Tạo database Turso (miễn phí)
+```bash
+curl -sSfL https://get.tur.so/install.sh | bash   # cài Turso CLI
+turso auth login                                   # đăng nhập qua browser
+turso db create happynewyear-logs                  # tạo database
+turso db show happynewyear-logs --url              # lấy connection URL
+turso db tokens create happynewyear-logs           # tạo auth token
+```
+
+### 2. Khai báo biến môi trường
+Copy [.env.example](.env.example) → `.env` (chỉ dùng local, không commit) và điền:
+```
+TURSO_DATABASE_URL=libsql://...      # từ `turso db show --url`
+TURSO_AUTH_TOKEN=...                 # từ `turso db tokens create`
+DASHBOARD_USER=admin
+DASHBOARD_PASS=<mật khẩu mạnh>
+DASHBOARD_SESSION_SECRET=<chuỗi random dài>
+```
+Sinh chuỗi random cho `DASHBOARD_SESSION_SECRET`:
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+Trên **Vercel**: Project Settings → Environment Variables → khai báo đúng 5 biến trên (Production + Preview).
+
+### 3. Chạy thử ở local
+`api/*.js` theo convention Vercel Serverless Functions, cần `vercel dev` để route `/api/*` hoạt động đúng ở local:
+```bash
+npm install -g vercel
+vercel dev
+```
+Mở `http://localhost:3000/dashboard.html`, đăng nhập bằng `DASHBOARD_USER`/`DASHBOARD_PASS`.
+
+> 💡 Muốn test nhanh mà chưa cần tạo Turso: set `TURSO_DATABASE_URL=file:./local-test.db` — `@libsql/client` hỗ trợ chạy trực tiếp trên 1 file SQLite local, không cần `TURSO_AUTH_TOKEN`.
+
+### 4. Bảo mật
+- `/api/log` **không** yêu cầu đăng nhập — đúng chủ đích, vì mọi khách xem trang đều tự động gọi để ghi lượt truy cập.
+- `/api/logs` (đọc log) và `/dashboard.html` yêu cầu cookie session hợp lệ, cấp sau khi đăng nhập đúng qua `/api/auth/login`. Cookie ký HMAC-SHA256 bằng `DASHBOARD_SESSION_SECRET`, hết hạn sau 8 giờ, **không lưu session ở DB** (stateless, chỉ verify chữ ký + thời hạn).
+
 ## 🛠️ Công nghệ sử dụng
 
 - HTML5 / CSS3 / Vanilla JavaScript (không dùng framework)
@@ -80,6 +136,7 @@ Sau đó mở `http://localhost:5500/index.html`.
 - [Font Awesome 6.6.0](https://cdnjs.com/libraries/font-awesome) — icon menu cài đặt
 - `Stage.js`, `MyMath.js`, `fscreen.js` (thư viện nội bộ của mẫu pháo hoa gốc, tự host tại `assets/js/vendor/`) — engine vẽ pháo hoa canvas
 - Canvas API — vẽ hoa đào rơi, pháo hoa
+- [Vercel Serverless Functions](https://vercel.com/docs/functions) (`/api`) + [Turso](https://turso.tech) (`@libsql/client`) — ghi log & API cho dashboard
 
 ## 📌 Ghi chú
 

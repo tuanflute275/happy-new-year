@@ -23,6 +23,12 @@ const SKIP_TOP_LEVEL = new Set([
   "package-lock.json",
   "README.md",
   "TODO.md",
+  // Serverless functions live at the project root — Vercel resolves /api
+  // independently of `outputDirectory`, so it must NOT be duplicated into dist/.
+  "api",
+  ".env",
+  ".env.local",
+  ".env.example",
 ]);
 
 // Author-written JS files (relative to assets/js/) to obfuscate.

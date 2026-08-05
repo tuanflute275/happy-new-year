@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Dashboard | HAPPY NEW YEAR 2027</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+
+<body>
+  <div id="login-view" class="view">
+    <form id="login-form" class="login-card">
+      <h1>🔒 Đăng nhập Dashboard</h1>
+      <label>Tài khoản
+        <input type="text" id="login-username" autocomplete="username" value="admin" required />
+      </label>
+      <label>Mật khẩu
+        <input type="password" id="login-password" autocomplete="current-password" required />
+      </label>
+      <p id="login-error" class="login-error hidden"></p>
+      <button type="submit">Đăng nhập</button>
+    </form>
+  </div>
+
+  <div id="dashboard-view" class="view hidden">
+    <header class="dash-header">
+      <h1>📊 Dashboard theo dõi <span id="preview-badge" class="preview-badge hidden">🧪 Dữ liệu mẫu — chưa nối API thật</span></h1>
+      <button id="logout-btn" class="logout-btn">Đăng xuất</button>
+    </header>
+
+    <div id="summary-cards" class="summary-cards"></div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-type="">Tất cả</button>
+      <button class="filter-btn" data-type="visit">Lượt truy cập</button>
+      <button class="filter-btn" data-type="personalize_open">Mở link riêng</button>
+      <button class="filter-btn" data-type="interaction">Tương tác</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Thời gian</th>
+            <th>Loại</th>
+            <th>Sự kiện</th>
+            <th>Tên</th>
+            <th>Trang</th>
+            <th>IP</th>
+            <th>User Agent</th>
+          </tr>
+        </thead>
+        <tbody id="logs-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <button id="prev-page">‹ Trước</button>
+      <span id="page-info"></span>
+      <button id="next-page">Sau ›</button>
+    </div>
+  </div>
+
+  <script src="assets/js/dashboard.js"></script>
+</body>
+
+</html>

@@ -36,3 +36,7 @@ build/
 *.tmp
 *.bak
 *.cache
+
+# Local SQLite file (chỉ dùng khi dev local với @libsql/client file: mode)
+*.db
+*.db-*

@@ -9,6 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "@libsql/client": "^0.14.0"
+  },
   "devDependencies": {
     "clean-css": "^5.3.3",
     "javascript-obfuscator": "^5.5.0",

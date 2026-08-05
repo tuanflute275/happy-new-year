@@ -33,6 +33,14 @@ async function ensureSchema() {
     )
   `);
   await db.execute(`CREATE INDEX IF NOT EXISTS idx_logs_type_id ON logs (type, id)`);
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS avatars (
+      id TEXT PRIMARY KEY,
+      mime TEXT NOT NULL,
+      data TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
   schemaReady = true;
 }
 
@@ -86,4 +94,23 @@ async function summaryStats() {
   };
 }
 
-module.exports = { insertLog, queryLogs, summaryStats };
+async function insertAvatar({ id, mime, data }) {
+  await ensureSchema();
+  const db = getClient();
+  await db.execute({
+    sql: `INSERT INTO avatars (id, mime, data) VALUES (?, ?, ?)`,
+    args: [id, mime, data],
+  });
+}
+
+async function getAvatar(id) {
+  await ensureSchema();
+  const db = getClient();
+  const result = await db.execute({
+    sql: `SELECT mime, data FROM avatars WHERE id = ?`,
+    args: [id],
+  });
+  return result.rows[0] || null;
+}
+
+module.exports = { insertLog, queryLogs, summaryStats, insertAvatar, getAvatar };

@@ -29,6 +29,14 @@
   <link href="assets/img/logo.jpg" rel="icon" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#4a0f0f" />
+  <link rel="apple-touch-icon" href="assets/img/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Tết 2027" />
+
   <link rel="stylesheet" href="assets/css/self.css" />
   <link rel="stylesheet" href="assets/css/count_down.css" />
   <link rel="stylesheet" href="assets/css/fireworks.css" />
@@ -66,6 +74,21 @@
       <button type="button" id="share-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
       <h2><i class="fa-solid fa-gift" style="color: #ffb464; margin-right: 8px;"></i>Tạo lời chúc riêng</h2>
       <p class="share-desc">Nhập tên người nhận để tạo link thiệp cá nhân hoá, sau đó gửi qua Zalo / Messenger / SMS.</p>
+      <div class="share-avatar-row">
+        <div id="avatar-crop-frame" class="avatar-crop-frame">
+          <span id="avatar-crop-placeholder" class="avatar-crop-placeholder"><i class="fa-solid fa-camera"></i></span>
+          <img id="avatar-crop-img" class="avatar-crop-img hidden" alt="" draggable="false" />
+        </div>
+        <div class="avatar-crop-side">
+          <div class="avatar-crop-buttons">
+            <button type="button" id="avatar-pick-btn"><i class="fa-solid fa-image"></i> Chọn ảnh</button>
+            <button type="button" id="avatar-remove-btn" class="hidden" title="Xoá ảnh"><i class="fa-solid fa-trash"></i></button>
+          </div>
+          <input type="range" id="avatar-zoom-range" class="hidden" min="0" max="1" step="0.001" value="0" />
+          <p class="avatar-crop-hint">Tuỳ chọn: thêm ảnh nhỏ đi kèm lời chúc</p>
+        </div>
+        <input type="file" id="avatar-file-input" accept="image/*" class="hidden" />
+      </div>
       <div class="share-input-row">
         <input type="text" id="share-name-input" maxlength="40" placeholder="Ví dụ: Minh, Linh, Anh Tuấn..." autocomplete="off" />
         <button type="button" id="share-gen-btn">Tạo link</button>
@@ -128,6 +151,26 @@
     </div>
   </div>
 
+  <!-- Mini-game: Gói bánh chưng -->
+  <div id="banhchung-wrapper">
+    <div id="banhchung-btn">
+      <span class="banhchung-icon"></span>
+    </div>
+    <span class="banhchung-tooltip">Gói bánh chưng</span>
+  </div>
+  <div id="banhchung-overlay" class="hidden">
+    <div id="banhchung-card">
+      <div id="banhchung-stack"></div>
+      <div id="banhchung-step">Bước tiếp theo: —</div>
+      <div id="banhchung-result"></div>
+      <div class="banhchung-actions">
+        <button type="button" id="banhchung-add">Cho vào bánh! 🥢</button>
+        <button type="button" id="banhchung-again" class="hidden">Gói bánh khác</button>
+        <button type="button" id="banhchung-close">Đóng</button>
+      </div>
+    </div>
+  </div>
+
   <!-- view canvas -->
   <canvas id="canvasSnow"></canvas>
 
@@ -173,6 +216,7 @@
   <script src="assets/js/count_down.js"></script>
   <script src="assets/js/xin-xam.js"></script>
   <script src="assets/js/minigame.js"></script>
+  <script src="assets/js/banhchung.js"></script>
   <script src="assets/js/fireworks.js"></script>
   <script src="assets/js/celebrate.js"></script>
   <script src="assets/js/snowflake.js"></script>
@@ -361,7 +405,17 @@
     });
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="assets/js/avatar-crop.js"></script>
   <script src="assets/js/share.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/sw.js").catch(function (err) {
+          console.error("SW registration failed:", err);
+        });
+      });
+    }
+  </script>
 </body>
 
 </html>

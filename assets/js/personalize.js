@@ -18,6 +18,19 @@
         "Chúc bạn năm mới 2027 an khang, thịnh vượng và vạn sự như ý.";
       arrayList.length = 0;
       arrayList.push(greeting);
+
+      var avatarId = params.get("avatar");
+      if (avatarId && /^[a-f0-9]{12}$/.test(avatarId)) {
+        var centeredBox = document.querySelector(".centeredBox");
+        if (centeredBox) {
+          var avatarImg = document.createElement("img");
+          avatarImg.className = "greeting-avatar";
+          avatarImg.alt = "Ảnh của " + name;
+          avatarImg.src = "/api/avatar?id=" + encodeURIComponent(avatarId);
+          avatarImg.onerror = function () { avatarImg.remove(); };
+          centeredBox.insertBefore(avatarImg, centeredBox.firstChild);
+        }
+      }
     }
   }
 })();

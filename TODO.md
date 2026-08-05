@@ -25,15 +25,13 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 
 ## 🌟 Tính năng nâng cao (giá trị cao nhưng tốn công hơn, làm sau)
 
-- [ ] **Pháo hoa đồng bộ nhịp nhạc** — dùng Web Audio API phân tích beat bài đang phát, đồng bộ cường độ bắn pháo hoa theo nhạc.
-- [x] **Mini-game chờ giao thừa** — "Đập lợn tiết kiệm" 🐷: bấm nút nổi giữa-trái, đập heo liên tục (8-11 lần bí mật/lượt) để nhận lộc ngẫu nhiên, đập vỡ hiện tổng lộc + xếp hạng heo (Heo Đất/Bạc/Vàng/Kim Cương) kèm hiệu ứng tiền rơi, có nút đập lại. Đã test: vị trí không đè lên kỳ lân/đèn lồng/nút khác, luồng chơi + reset + đóng đều đúng. *File liên quan: `assets/js/minigame.js` (mới), `custom.css`, `index.html`.*
-- [ ] **Avatar cá nhân hoá** — cho phép upload/crop ảnh nhỏ hiển thị cùng lời chúc riêng (đi kèm `?to=Tên`).
+- [x] **Mini-game chờ giao thừa** — 2 game nhẹ, nút nổi xếp cột góc phải (dưới nút cài đặt, trên nút xin xăm):
+  - **"Đập lợn tiết kiệm"** 🐷: đập heo liên tục (8-11 lần bí mật/lượt) nhận lộc ngẫu nhiên, vỡ heo hiện tổng lộc (đếm số lên dần) + xếp hạng (Heo Đất/Bạc/Vàng/Kim Cương) kèm flash toàn màn hình + rung nhẹ + tiền/sao rơi, có nút đập lại.
+  - **"Gói bánh chưng"** (icon vuông lá xanh + lưới dây lạt, không dùng emoji vì không có emoji bánh chưng): bấm đúng thứ tự 7 lớp truyền thống (lá dong → gạo nếp → đậu xanh → thịt heo → đậu xanh → gạo nếp → buộc lạt), tốc độ gói quyết định danh hiệu (Nghệ Nhân/Khéo Léo/Chăm Chỉ/Lần Đầu), hoàn thành hiện hình bánh vuông với lưới dây lạt + hiệu ứng lá/sao rơi.
+  - Đã test: 4 nút cột phải (cài đặt/bánh chưng/heo/xin xăm) không đè nhau ở cả desktop và mobile, luồng chơi/reset/đóng của cả 2 game đều đúng, sửa lỗi emoji 🫘 không render (đổi sang 🟢). *File liên quan: `assets/js/minigame.js`, `assets/js/banhchung.js` (mới), `custom.css`, `index.html`.*
+- [x] **Avatar cá nhân hoá** — trong panel "Tạo lời chúc riêng", có thể chọn ảnh, kéo để đổi vị trí + kéo thanh trượt để zoom (widget crop tự viết bằng canvas, không dùng thư viện ngoài), ảnh được nén còn ~200×200 JPEG và lưu qua endpoint mới `/api/avatar` (Turso, bảng `avatars`) để ảnh đi kèm được link chia sẻ tới đúng người nhận (không chỉ hiện trên máy người tạo). Link sinh ra dạng `?to=Tên&avatar=id`; người nhận mở link sẽ thấy ảnh đại diện tròn phía trên lời chúc trong `.centeredBox`. Ảnh giới hạn tối đa ~105KB sau decode (đủ cho ảnh đại diện nhỏ), chỉ nhận `image/webp|jpeg|png`. *File liên quan: `api/_db.js`, `api/avatar.js` (mới), `assets/js/avatar-crop.js` (mới), `assets/js/personalize.js`, `assets/js/share.js`, `index.html`, `assets/css/custom.css`, `assets/css/style.css`, `scripts/build.js`.*
 - [ ] **Chuyển ngôn ngữ VI/EN** — phục vụ khách quốc tế xem trang.
-- [ ] **Bản dành cho công ty/nhóm** — tuỳ biến logo, tên, câu chúc theo thương hiệu riêng.
-- [ ] **Nhắc giao thừa qua Web Push** — nút "nhắc tôi lúc giao thừa", gửi thông báo trình duyệt đúng lúc (cần Service Worker).
-- [ ] **PWA (Add to Home Screen)** — cache static assets, mở lại nhanh, lưu như một thiệp Tết trên màn hình chính.
-- [ ] **Series các bản Tết theo năm** — liên kết các bản Tết 2025/2027/2027... thành một "album" theo năm.
-- [ ] **Analytics đơn giản** (Plausible/GA) — biết được bao nhiêu người mở link thiệp (cần tài khoản dịch vụ ngoài).
+- [x] **PWA (Add to Home Screen)** — thêm `manifest.json` (icon 192/512, tạo từ `logo.jpg` cắt vuông qua `sharp`), `sw.js` (Service Worker): precache app shell (HTML/CSS/JS/icon) lúc install, HTML dùng network-first (luôn lấy bản mới khi online), CSS/JS/ảnh/nhạc dùng cache-first (mở lại nhanh), `/api/*` và CDN cross-origin không bị cache. Thêm meta tag Apple (`apple-mobile-web-app-capable`, `apple-touch-icon`...) để hỗ trợ "Add to Home Screen" trên iOS Safari. Đã test: manifest hợp lệ, SW cài đặt + kiểm soát trang (`controller: true`), cache lưu 30 tài nguyên, reload không lỗi, build production vẫn ra đủ file. *File liên quan: `manifest.json`, `sw.js` (mới), `assets/img/icon-192.png`, `assets/img/icon-512.png` (mới), `index.html`.*
 
 ---
 

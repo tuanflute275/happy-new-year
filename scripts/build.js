@@ -34,6 +34,7 @@ const SKIP_TOP_LEVEL = new Set([
 // Author-written JS files (relative to assets/js/) to obfuscate.
 // Everything else under assets/js (fireworks.js, scriptWatch.js, vendor/) is left untouched.
 const OBFUSCATE_JS = new Set([
+  "avatar-crop.js",
   "celebrate.js",
   "count_down.js",
   "custom.js",

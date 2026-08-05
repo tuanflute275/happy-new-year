@@ -27,8 +27,25 @@ document.addEventListener("DOMContentLoaded", function () {
     return window.location.origin + window.location.pathname;
   }
 
-  function buildLink(name) {
-    return getBaseUrl() + "?to=" + encodeURIComponent(name.trim());
+  function buildLink(name, avatarId) {
+    var link = getBaseUrl() + "?to=" + encodeURIComponent(name.trim());
+    if (avatarId) link += "&avatar=" + encodeURIComponent(avatarId);
+    return link;
+  }
+
+  function uploadAvatar(dataUrl) {
+    return fetch("/api/avatar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: dataUrl }),
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error("upload failed");
+        return res.json();
+      })
+      .then(function (json) {
+        return json.id;
+      });
   }
 
   function openPanel() {
@@ -37,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     nameInput.value = "";
     resultEl.classList.add("hidden");
     copyToast.classList.add("hidden");
+    if (window.AvatarCrop) window.AvatarCrop.reset();
     setTimeout(function () { nameInput.focus(); }, 150);
   }
 
@@ -46,8 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
     copyToast.classList.add("hidden");
   }
 
-  function showResult(name) {
-    var link = buildLink(name);
+  function showResult(name, avatarId) {
+    var link = buildLink(name, avatarId);
     linkText.textContent = link;
     resultEl.classList.remove("hidden");
     copyToast.classList.add("hidden");
@@ -105,7 +123,27 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 2000);
       return;
     }
-    showResult(name);
+
+    if (!window.AvatarCrop || !window.AvatarCrop.hasAvatar()) {
+      showResult(name);
+      return;
+    }
+
+    var originalLabel = genBtn.textContent;
+    genBtn.disabled = true;
+    genBtn.textContent = "Đang tải ảnh...";
+    uploadAvatar(window.AvatarCrop.getCroppedDataUrl())
+      .then(function (avatarId) {
+        showResult(name, avatarId);
+      })
+      .catch(function () {
+        alert("Không thể tải ảnh đại diện, đã tạo link không kèm ảnh.");
+        showResult(name);
+      })
+      .then(function () {
+        genBtn.disabled = false;
+        genBtn.textContent = originalLabel;
+      });
   });
 
   nameInput.addEventListener("keydown", function (e) {

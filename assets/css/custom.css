@@ -590,6 +590,100 @@
   font-family: 'Inter', sans-serif;
 }
 
+.share-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.avatar-crop-frame {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  min-width: 88px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px dashed rgba(255, 255, 255, 0.25);
+  cursor: grab;
+  touch-action: none;
+  flex-shrink: 0;
+}
+.avatar-crop-frame:active { cursor: grabbing; }
+
+.avatar-crop-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 1.4rem;
+  pointer-events: none;
+}
+.avatar-crop-placeholder.hidden { display: none; }
+
+.avatar-crop-img {
+  position: absolute;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+.avatar-crop-img.hidden { display: none; }
+
+.avatar-crop-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.avatar-crop-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+#avatar-pick-btn,
+#avatar-remove-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 7px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+#avatar-pick-btn:hover,
+#avatar-remove-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #ffb464;
+  color: #ffb464;
+}
+#avatar-remove-btn { flex-shrink: 0; padding: 7px 10px; }
+#avatar-remove-btn.hidden { display: none; }
+
+#avatar-zoom-range {
+  width: 100%;
+  accent-color: #d4762a;
+}
+#avatar-zoom-range.hidden { display: none; }
+
+.avatar-crop-hint {
+  margin: 0;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: 'Inter', sans-serif;
+}
+
 .share-input-row {
   display: flex;
   gap: 10px;
@@ -809,6 +903,10 @@
   .centeredBox pre {
     font-size: 1.3rem !important;
   }
+  .greeting-avatar {
+    width: 64px !important;
+    height: 64px !important;
+  }
   /* Overlay "Nhấp vào bất kỳ đâu để phát nhạc" đang set inline font-size:2em, cần !important để override */
   #overlay {
     font-size: 1.1rem !important;
@@ -872,6 +970,21 @@
     transform: translateY(-50%) translateX(0);
   }
 
+  /* Gói bánh chưng xếp ngay trên Đập lợn, cùng cột góc trái */
+  #banhchung-wrapper {
+    bottom: 140px;
+    left: 16px;
+    right: auto;
+  }
+  .banhchung-tooltip {
+    left: calc(100% + 10px);
+    right: auto;
+    transform: translateY(-50%) translateX(-8px);
+  }
+  #banhchung-wrapper:hover .banhchung-tooltip {
+    transform: translateY(-50%) translateX(0);
+  }
+
   /* Giao diện panel chia sẻ trên mobile */
   #share-panel {
     padding: 24px 16px 18px;
@@ -884,6 +997,17 @@
   .share-desc {
     font-size: 0.78rem;
     margin-bottom: 16px;
+  }
+  .share-avatar-row {
+    gap: 10px;
+  }
+  .avatar-crop-frame {
+    width: 68px;
+    height: 68px;
+    min-width: 68px;
+  }
+  .avatar-crop-hint {
+    font-size: 0.66rem;
   }
   .share-input-row {
     flex-direction: column;
@@ -1185,6 +1309,263 @@
   100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
 
+/* ============================================
+   MINI-GAME — Gói bánh chưng
+   ============================================ */
+#banhchung-wrapper {
+  position: fixed;
+  bottom: 230px;
+  right: 20px;
+  z-index: 9999;
+  animation: xinXamFloat 3s ease-in-out infinite;
+}
+
+#banhchung-btn {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3f8f4f 0%, #256032 100%);
+  border: 2px solid rgba(200, 255, 210, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  animation: xinXamGlow 2s infinite;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#banhchung-btn:hover {
+  transform: scale(1.15) rotate(8deg);
+  border-color: rgba(200, 255, 210, 1);
+  box-shadow: 0 0 25px rgba(63, 143, 79, 0.7);
+}
+
+#banhchung-btn:active {
+  transform: scale(0.95);
+}
+
+/* Icon bánh chưng (không có emoji thật): vuông lá xanh + dây lạt chữ thập */
+.banhchung-icon {
+  position: relative;
+  display: block;
+  width: 26px;
+  height: 26px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  border-radius: 3px;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
+}
+
+.banhchung-icon::before,
+.banhchung-icon::after {
+  content: "";
+  position: absolute;
+  background: #e8cfa0;
+}
+
+.banhchung-icon::before {
+  top: 8px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  box-shadow: 0 8px 0 #e8cfa0;
+}
+
+.banhchung-icon::after {
+  left: 8px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  box-shadow: 8px 0 0 #e8cfa0;
+}
+
+.banhchung-tooltip {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  background: rgba(30, 8, 8, 0.9);
+  border: 1px solid rgba(255, 180, 100, 0.25);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#banhchung-wrapper:hover .banhchung-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+#banhchung-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
+  padding: 20px;
+}
+
+#banhchung-overlay.hidden {
+  display: none;
+}
+
+#banhchung-card {
+  background: linear-gradient(180deg, #fffaf0, #eef7ec);
+  border: 3px solid #3f8f4f;
+  border-radius: 16px;
+  padding: 28px 24px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+.banhchung-card-pop {
+  animation: minigameCardGlow 1s ease;
+}
+
+#banhchung-stack {
+  min-height: 2.4rem;
+  font-size: 1.6rem;
+  line-height: 1;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.banhchung-layer {
+  display: inline-block;
+  animation: minigameBadgeIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#banhchung-step {
+  font-size: 1.05rem;
+  color: #2f5d3a;
+  margin-bottom: 10px;
+}
+
+#banhchung-cake {
+  margin: 8px auto 12px;
+  display: flex;
+  justify-content: center;
+  animation: minigameBadgeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.banhchung-cake-square {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.banhchung-cake-square::before,
+.banhchung-cake-square::after {
+  content: "";
+  position: absolute;
+  background: #d7b98a;
+}
+
+.banhchung-cake-square::before {
+  top: 28px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  box-shadow: 0 28px 0 #d7b98a;
+}
+
+.banhchung-cake-square::after {
+  left: 28px;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  box-shadow: 28px 0 0 #d7b98a;
+}
+
+.banhchung-tier {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #2e7d32;
+  margin-bottom: 6px;
+}
+
+.banhchung-desc {
+  color: #333;
+  font-style: italic;
+  margin-bottom: 4px;
+}
+
+.banhchung-time {
+  color: #7a7a7a;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.banhchung-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.banhchung-actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#banhchung-add {
+  background-color: #3f8f4f;
+  color: #fff;
+}
+
+#banhchung-again {
+  background-color: #d4a017;
+  color: #fff;
+}
+
+#banhchung-close {
+  background-color: #eee;
+  color: #333;
+}
+
+#banhchung-leaf-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 200000;
+  overflow: hidden;
+}
+
+.banhchung-leaf-piece {
+  position: absolute;
+  top: -30px;
+  animation: minigameCoinFall linear forwards;
+}
+
 @media (max-width: 480px) {
   #minigame-btn {
     width: 48px;
@@ -1196,5 +1577,13 @@
   }
   #minigame-piggy {
     font-size: 3.5rem;
+  }
+  #banhchung-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+  #banhchung-card {
+    padding: 20px 16px;
   }
 }

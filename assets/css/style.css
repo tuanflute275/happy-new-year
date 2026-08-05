@@ -75,6 +75,17 @@ body {
     padding: 0 10px
 }
 
+.greeting-avatar {
+    display: block;
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 180, 100, .65);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .35)
+}
+
 .centeredBox pre {
     display: inline-block;
     background: linear-gradient(180deg, #fff 52.5%, rgba(255, 255, 255, .08) 100%);

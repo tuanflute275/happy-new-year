@@ -6,8 +6,8 @@
     },
     get period() {
       let dateString = "06/02/2027";
-      let parts = dateString.split("/"); 
-      let formattedDate = `${parts[1]}/${parts[0]}/${parts[2]}`; 
+      let parts = dateString.split("/");
+      let formattedDate = `${parts[1]}/${parts[0]}/${parts[2]}`;
       let t = new Date(formattedDate).getTime();
       n = new Date(),
         r = Math.floor((t - n) / 1e3),
@@ -163,7 +163,18 @@
         (e.controls.minutes.innerHTML = e.plural("minutes")),
         (e.controls.hours.innerHTML = e.plural("hours")),
         (e.controls.days.innerHTML = e.plural("days")),
+        e.checkArrival(),
         requestAnimationFrame(e.render);
+    },
+    checkArrival: function () {
+      if (window.__newYearArrived) return;
+      let p = e.period;
+      0 === p.days &&
+        0 === p.hours &&
+        0 === p.minutes &&
+        0 === p.seconds &&
+        ((window.__newYearArrived = !0),
+        document.dispatchEvent(new CustomEvent("newyear:arrived")));
     },
   };
   e.animate();

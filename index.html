@@ -136,11 +136,15 @@
   </div>
 
   <audio id="audioEl" autoplay></audio>
+  <div id="music-loading" class="hidden" aria-live="polite">
+    <span class="music-loading-spinner"></span>
+    Đang tải nhạc...
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
-  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/fscreen%401.0.1.js"></script>
-  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/Stage%400.1.4.js"></script>
-  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/MyMath.js"></script>
+  <script src="assets/js/vendor/fscreen.js"></script>
+  <script src="assets/js/vendor/Stage.js"></script>
+  <script src="assets/js/vendor/MyMath.js"></script>
   <script type="text/javascript">
     window.isLiteMode = localStorage.getItem("lite-mode") === "true";
   </script>
@@ -190,14 +194,6 @@
 
       // Hàm xử lý khi bài hát kết thúc
       function handleSongEnded() {
-        const audioEl = document.getElementById("audioEl");
-        const randomAudio =
-          audioList[Math.floor(Math.random() * audioList.length)];
-        audioEl.src = randomAudio;
-        audioEl.muted = false;
-        audioEl.play().catch((error) => {
-          console.error("Phát nhạc thất bại: ", error);
-        });
         handleNextMusic();
       }
 
@@ -210,6 +206,7 @@
         audioEl.muted = false;
         audioEl.play().catch((error) => {
           console.error("Phát nhạc thất bại: ", error);
+          hideMusicLoading();
         });
       }
 
@@ -227,6 +224,7 @@
           const audioEl = document.getElementById("audioEl");
           audioEl.play().catch((error) => {
             console.error("Phát nhạc thất bại: ", error);
+            hideMusicLoading();
           });
           updatePlayPauseButtons();
         });
@@ -257,6 +255,26 @@
       // Gắn sự kiện "ended" cho phần tử audio
       const audioEl = document.getElementById("audioEl");
       audioEl.addEventListener("ended", handleSongEnded);
+
+      // Loading indicator khi nhạc đang tải/buffer (lần phát đầu hoặc đổi bài trên mạng chậm)
+      const musicLoading = document.getElementById("music-loading");
+      let musicLoadingTimer = null;
+      function showMusicLoading() {
+        musicLoading.classList.remove("hidden");
+        clearTimeout(musicLoadingTimer);
+        // Safety-net: không để badge quay mãi nếu trình duyệt không bắn "playing"/"canplay"/"error"
+        musicLoadingTimer = setTimeout(hideMusicLoading, 15000);
+      }
+      function hideMusicLoading() {
+        musicLoading.classList.add("hidden");
+        clearTimeout(musicLoadingTimer);
+        musicLoadingTimer = null;
+      }
+      audioEl.addEventListener("loadstart", showMusicLoading);
+      audioEl.addEventListener("waiting", showMusicLoading);
+      audioEl.addEventListener("playing", hideMusicLoading);
+      audioEl.addEventListener("canplay", hideMusicLoading);
+      audioEl.addEventListener("error", hideMusicLoading);
 
       // Lite Mode
       const toggleLiteBtn = document.getElementById("toggle-lite");
@@ -314,6 +332,7 @@
         audioEl.muted = false;
         audioEl.play().catch((error) => {
           console.error("Phát nhạc thất bại: ", error);
+          hideMusicLoading();
         });
         overlay.style.display = "none";
       });

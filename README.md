@@ -78,7 +78,7 @@ Sau đó mở `http://localhost:5500/index.html`.
 - HTML5 / CSS3 / Vanilla JavaScript (không dùng framework)
 - [GSAP (TweenMax) 2.0.2](https://cdnjs.com/libraries/gsap) — animation số đếm ngược, chữ, hoa văn
 - [Font Awesome 6.6.0](https://cdnjs.com/libraries/font-awesome) — icon menu cài đặt
-- `Stage.js`, `MyMath.js`, `fscreen.js` (thư viện nội bộ của mẫu pháo hoa gốc, load qua CDN S3) — engine vẽ pháo hoa canvas
+- `Stage.js`, `MyMath.js`, `fscreen.js` (thư viện nội bộ của mẫu pháo hoa gốc, tự host tại `assets/js/vendor/`) — engine vẽ pháo hoa canvas
 - Canvas API — vẽ hoa đào rơi, pháo hoa
 
 ## 📌 Ghi chú

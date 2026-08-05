@@ -153,6 +153,49 @@
   display: none;
 }
 
+/* ---- Loading indicator khi nhạc đang tải/buffer ---- */
+#music-loading {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(30, 8, 8, 0.9) 0%, rgba(55, 12, 12, 0.88) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 180, 100, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  z-index: 50000;
+  pointer-events: none;
+}
+
+#music-loading.hidden {
+  display: none;
+}
+
+.music-loading-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 180, 100, 0.25);
+  border-top-color: #ffb464;
+  border-radius: 50%;
+  animation: musicLoadingSpin 0.7s linear infinite;
+}
+
+@keyframes musicLoadingSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Wrapper cho nút và tooltip */
 #xin-xam-wrapper {
   position: fixed;
@@ -751,22 +794,29 @@
   transform: scale(0.96);
 }
 
-@media (max-width: 768px) {
-  .year {
-    font-size: 4em !important;
-  }
-  .year2 {
-    font-size: 3.2rem !important;
-  }
+/* Tiêu đề WELCOME co giãn liên tục theo chiều rộng màn hình, tránh bị rớt dòng */
+.year {
+  font-size: clamp(1.8rem, 11vw, 6em) !important;
+  white-space: nowrap;
+}
+.year2 {
+  font-size: clamp(1.4rem, 9vw, 5rem) !important;
+  white-space: nowrap;
 }
 
 @media (max-width: 480px) {
-  /* Fix tiêu đề bị rớt dòng */
-  .year {
-    font-size: 2.8em !important;
+  /* Thu nhỏ lời chúc + các ảnh trang trí để không đè lên nội dung chính */
+  .centeredBox pre {
+    font-size: 1.5rem !important;
   }
-  .year2 {
-    font-size: 2.2rem !important;
+  .group__common.dragon {
+    width: 110px !important;
+  }
+  .group__common.tet_xum_vay {
+    width: 220px !important;
+  }
+  .den-long__group img {
+    width: 140px !important;
   }
 
   /* Nút bánh răng cài đặt */

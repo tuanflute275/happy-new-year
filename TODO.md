@@ -38,15 +38,15 @@ File này tổng hợp các tính năng đã làm, nên làm tiếp và các ph�
 
 ## 🔧 Tối ưu / sửa lỗi kỹ thuật (nên làm sớm, rủi ro thấp)
 
-- [ ] **Responsive mobile** — chưa có `@media` breakpoint cho `.dragon`, `.tet_xum_vay`, `.den-long__group` (đang cố định px trong `style.css`) → ảnh có thể tràn/lấp trên màn hình nhỏ.
-- [ ] **Sửa viewport meta** — hiện chỉ có `user-scalable=0`, thiếu `width=device-width, initial-scale=1`.
-- [ ] **Sửa `z-index` phi lý** trong `custom.css` (`z-index: 99999999999999999999999`) → đổi về giá trị hợp lý (999–9999).
+- [x] **Sửa `<html lang="en">` → `lang="vi"`** (cả `index.html` và `firework.html`) — nội dung toàn tiếng Việt.
+- [x] **Sửa nội dung OG meta sai** — "Giáp Thìn 2027" (Giáp Thìn là 2024) → đã sửa thành "Đinh Mùi 2027" (đúng con giáp năm 2027) trong cả 4 thẻ meta liên quan.
+- [x] **Thêm `alt`** cho tất cả `<img>` trong `index.html` (đèn lồng, rồng/múa lân, banner sum vầy) — đã thêm mô tả tiếng Việt cho cả 4 ảnh.
+- [x] **Sửa `z-index` phi lý** trong `custom.css` — đã được dọn lại thành hệ z-index hợp lý (9999–250000 theo từng lớp UI) khi làm lại giao diện settings/share panel.
+- [x] **Sửa viewport meta** — đã thêm `width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no`. Đã test trên iPhone 12 (Playwright): không còn tràn ngang trang.
+- [ ] ⚠️ **Responsive mobile — ưu tiên cao hơn sau khi sửa viewport** — chưa có `@media` breakpoint cho `.year`/`.new-year` (tiêu đề WELCOME quá to), `.dragon`, `.tet_xum_vay`, `.den-long__group` (đang cố định px trong `style.css`). Trước đây trình duyệt mobile tự zoom-out toàn trang nên che được lỗi này; giờ viewport đã sửa đúng chuẩn thì các phần tử to/cố định px này lộ rõ chồng lấn lên nhau (title, đèn lồng, ảnh gia đình đè lên dòng chữ chúc) trên màn hình nhỏ. Nên làm sớm mục này tiếp theo.
 - [ ] **Gộp code trùng lặp** — `handleSongEnded` và `handleNextMusic` trong `index.html` gần như giống nhau 100%.
-- [ ] **Sửa `<html lang="en">` → `lang="vi"`** (cả `index.html` và `firework.html`) — nội dung toàn tiếng Việt.
-- [ ] **Thêm `alt`** cho tất cả `<img>` trong `index.html` (đèn lồng, rồng, banner...) — thiếu hoàn toàn hiện tại.
 - [ ] **Tự host 3 script pháo hoa** (`fscreen.js`, `Stage.js`, `MyMath.js`) thay vì phụ thuộc một bucket S3 cá nhân bên ngoài — tránh single point of failure nếu bucket đó offline.
-- [ ] **Sửa nội dung OG meta sai** — mô tả "Giáp Thìn 2027" trong `index.html` (dòng 11) là sai (Giáp Thìn là 2024), cần cập nhật đúng theo năm/con giáp hiện tại.
-- [ ] **Tối ưu file nhạc** — các file mp3 hiện ~3–4MB/bài (tổng ~27MB), nên nén hoặc chuyển bitrate thấp hơn cho tải nhanh trên mobile.
+- [ ] **Tối ưu file nhạc** — các file mp3 hiện ~3–5MB/bài (14 bài, tổng khá nặng), nên nén hoặc chuyển bitrate thấp hơn cho tải nhanh trên mobile.
 - [ ] **Thêm loading indicator** khi đang tải nhạc lần đầu (file nặng, có thể mất vài giây trên mạng chậm).
 
 ---

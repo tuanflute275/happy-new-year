@@ -39,6 +39,7 @@ const OBFUSCATE_JS = new Set([
   "count_down.js",
   "custom.js",
   "personalize.js",
+  "playlist.js",
   "script.js",
   "self.js",
   "share.js",

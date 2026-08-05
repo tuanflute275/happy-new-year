@@ -23,6 +23,21 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!overlay) return;
 
   /* ---- Helpers ---- */
+  var DEFAULT_TOAST_HTML = copyToast.innerHTML;
+  var toastTimer = null;
+
+  function showToast(html, variant, duration) {
+    clearTimeout(toastTimer);
+    copyToast.innerHTML = html;
+    copyToast.classList.toggle("toast-warning", variant === "warning");
+    copyToast.classList.remove("hidden");
+    toastTimer = setTimeout(function () {
+      copyToast.classList.add("hidden");
+      copyToast.classList.remove("toast-warning");
+      copyToast.innerHTML = DEFAULT_TOAST_HTML;
+    }, duration || 2500);
+  }
+
   function getBaseUrl() {
     return window.location.origin + window.location.pathname;
   }
@@ -48,12 +63,19 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
+  function resetToast() {
+    clearTimeout(toastTimer);
+    copyToast.classList.add("hidden");
+    copyToast.classList.remove("toast-warning");
+    copyToast.innerHTML = DEFAULT_TOAST_HTML;
+  }
+
   function openPanel() {
     overlay.classList.remove("hidden");
     // Reset mỗi lần mở
     nameInput.value = "";
     resultEl.classList.add("hidden");
-    copyToast.classList.add("hidden");
+    resetToast();
     if (window.AvatarCrop) window.AvatarCrop.reset();
     setTimeout(function () { nameInput.focus(); }, 150);
   }
@@ -61,14 +83,14 @@ document.addEventListener("DOMContentLoaded", function () {
   function closePanel() {
     overlay.classList.add("hidden");
     resultEl.classList.add("hidden");
-    copyToast.classList.add("hidden");
+    resetToast();
   }
 
   function showResult(name, avatarId) {
     var link = buildLink(name, avatarId);
     linkText.textContent = link;
     resultEl.classList.remove("hidden");
-    copyToast.classList.add("hidden");
+    resetToast();
 
     // Tự sinh QR Code
     var qrContainer = document.getElementById("share-qrcode");
@@ -137,8 +159,12 @@ document.addEventListener("DOMContentLoaded", function () {
         showResult(name, avatarId);
       })
       .catch(function () {
-        alert("Không thể tải ảnh đại diện, đã tạo link không kèm ảnh.");
         showResult(name);
+        showToast(
+          '<i class="fa-solid fa-triangle-exclamation" style="margin-right: 5px;"></i>Không thể tải ảnh đại diện, đã tạo link không kèm ảnh.',
+          "warning",
+          3500
+        );
       })
       .then(function () {
         genBtn.disabled = false;
@@ -155,8 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var link = linkText.textContent;
     if (!link) return;
     navigator.clipboard.writeText(link).then(function () {
-      copyToast.classList.remove("hidden");
-      setTimeout(function () { copyToast.classList.add("hidden"); }, 2500);
+      showToast(DEFAULT_TOAST_HTML);
     }).catch(function () {
       // Fallback
       var ta = document.createElement("textarea");
@@ -165,8 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ta.select();
       document.execCommand("copy");
       document.body.removeChild(ta);
-      copyToast.classList.remove("hidden");
-      setTimeout(function () { copyToast.classList.add("hidden"); }, 2500);
+      showToast(DEFAULT_TOAST_HTML);
     });
   });
 
@@ -258,14 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
             [blob.type]: blob
           })
         ]).then(function () {
-          // Hiển thị toast thông báo copy thành công
-          copyToast.innerHTML = '<i class="fa-solid fa-circle-check" style="margin-right: 5px;"></i>Đã copy ảnh QR vào bộ nhớ tạm!';
-          copyToast.classList.remove("hidden");
-          setTimeout(function () {
-            copyToast.classList.add("hidden");
-            // Trả lại text toast cũ của copy link
-            copyToast.innerHTML = '<i class="fa-solid fa-circle-check" style="margin-right: 5px;"></i>Đã copy link thành công!';
-          }, 2500);
+          showToast('<i class="fa-solid fa-circle-check" style="margin-right: 5px;"></i>Đã copy ảnh QR vào bộ nhớ tạm!');
         }).catch(function (err) {
           console.error("Lỗi ghi clipboard: ", err);
           alert("Trình duyệt chưa hỗ trợ copy ảnh trực tiếp, vui lòng Tải ảnh QR!");

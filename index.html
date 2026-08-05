@@ -27,7 +27,7 @@
 
   <title>HAPPY NEW YEAR - 2027 | TUANFLUTE</title>
   <link href="assets/img/logo.jpg" rel="icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
@@ -63,6 +63,7 @@
         <a href="javascript:void(0)" id="play-song" style="display: none"><i class="fa-solid fa-play"></i> Phát nhạc</a>
       </li>
       <li><a href="javascript:void(0)" id="pause-song"><i class="fa-solid fa-pause"></i> Tạm dừng nhạc</a></li>
+      <li><a href="javascript:void(0)" id="open-playlist-panel"><i class="fa-solid fa-music"></i> Danh sách phát</a></li>
       <li><a href="javascript:void(0)" id="toggle-lite"><i class="fa-solid fa-leaf"></i> Chế độ nhẹ: TẮT</a></li>
       <li><a href="javascript:void(0)" id="open-share-panel"><i class="fa-solid fa-gift"></i> Tạo lời chúc &amp; chia sẻ</a></li>
     </ul>
@@ -112,6 +113,16 @@
         </div>
         <p id="share-copy-toast" class="hidden"><i class="fa-solid fa-circle-check" style="margin-right: 5px;"></i>Đã copy link thành công!</p>
       </div>
+    </div>
+  </div>
+
+  <!-- Danh sách phát nhạc Tết -->
+  <div id="playlist-overlay" class="hidden">
+    <div id="playlist-panel">
+      <button type="button" id="playlist-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+      <h2><i class="fa-solid fa-music" style="color: #ffb464; margin-right: 8px;"></i>Danh sách phát nhạc Tết</h2>
+      <p class="playlist-desc">Chọn bài hát yêu thích để phát ngay — lựa chọn sẽ được ghi nhớ cho lần mở trang sau.</p>
+      <ul id="playlist-list"></ul>
     </div>
   </div>
 
@@ -217,6 +228,7 @@
   <script src="assets/js/xin-xam.js"></script>
   <script src="assets/js/minigame.js"></script>
   <script src="assets/js/banhchung.js"></script>
+  <script src="assets/js/playlist.js"></script>
   <script src="assets/js/fireworks.js"></script>
   <script src="assets/js/celebrate.js"></script>
   <script src="assets/js/snowflake.js"></script>
@@ -241,22 +253,10 @@
   <script src="assets/js/script.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const audioList = [
-        "assets/audio/Chuyen-cu-bo-qua.mp3",
-        "assets/audio/Dau-chan-dau-tien.mp3",
-        "assets/audio/Di-Ve-Nha-Den-JustaTee.mp3",
-        "assets/audio/DiDeTroVe-SoobinHoangSon.mp3",
-        "assets/audio/Lam-gi-phai-hot.mp3",
-        "assets/audio/Mot-nam-moi-binh-an.mp3",
-        "assets/audio/NamQuaDaLamGi.mp3",
-        "assets/audio/NgayXuanLongPhungSumVay.mp3",
-        "assets/audio/Nu-cuoi-xuan.mp3",
-        "assets/audio/Tet-nay-con-se-ve.mp3",
-        "assets/audio/Tet-trong-tam-hon.mp3",
-        "assets/audio/TetDongDay.mp3",
-        "assets/audio/Ve-nha-la-co-tet.mp3",
-        "assets/audio/VeNhaAnTet.mp3",
-      ];
+      // Danh sách file lấy từ AUDIO_PLAYLIST (assets/js/playlist.js) — nguồn
+      // duy nhất, để tên bài hiển thị trong panel "Danh sách phát" luôn khớp
+      // với các bài thực sự có thể phát ngẫu nhiên/khi hết bài ở đây.
+      const audioList = AUDIO_PLAYLIST.map(function (s) { return s.file; });
 
       // Hàm xử lý khi bài hát kết thúc
       function handleSongEnded() {
@@ -392,9 +392,15 @@
 
       overlay.addEventListener("click", function () {
         const audioEl = document.getElementById("audioEl");
-        const randomAudio =
-          audioList[Math.floor(Math.random() * audioList.length)];
-        audioEl.src = randomAudio;
+        // Nếu người dùng từng chọn bài yêu thích trong "Danh sách phát", phát
+        // lại đúng bài đó; ngược lại phát ngẫu nhiên như trước.
+        let preferred = null;
+        try { preferred = localStorage.getItem(PREFERRED_SONG_KEY); } catch (e) {}
+        const startAudio =
+          preferred && audioList.indexOf(preferred) !== -1
+            ? preferred
+            : audioList[Math.floor(Math.random() * audioList.length)];
+        audioEl.src = startAudio;
         audioEl.muted = false;
         audioEl.play().catch((error) => {
           console.error("Phát nhạc thất bại: ", error);

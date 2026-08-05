@@ -4,8 +4,13 @@
  * - HTML: network-first (luôn lấy bản mới nhất khi online, fallback cache khi mất mạng).
  * - CSS/JS/ảnh/nhạc: cache-first (đã cache thì dùng ngay, chưa có thì tải + lưu cho lần sau).
  * - /api/* và cross-origin (CDN): không can thiệp, luôn đi network thật.
+ *
+ * ⚠️ LƯU Ý: mỗi khi sửa CSS/JS trong PRECACHE_URLS, phải tăng CACHE_VERSION
+ * ở dưới — nếu không, người đã từng mở trang sẽ tiếp tục thấy bản CSS/JS
+ * CŨ (cache-first) dù server đã có bản mới, vì sw.js không đổi thì trình
+ * duyệt không kích hoạt bản Service Worker mới.
  */
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v4";
 const CACHE_NAME = "happy-new-year-" + CACHE_VERSION;
 
 const PRECACHE_URLS = [

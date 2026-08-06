@@ -10,7 +10,7 @@
  * CŨ (cache-first) dù server đã có bản mới, vì sw.js không đổi thì trình
  * duyệt không kích hoạt bản Service Worker mới.
  */
-const CACHE_VERSION = "v5";
+const CACHE_VERSION = "v6";
 const CACHE_NAME = "happy-new-year-" + CACHE_VERSION;
 
 const PRECACHE_URLS = [

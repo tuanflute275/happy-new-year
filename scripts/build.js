@@ -35,15 +35,20 @@ const SKIP_TOP_LEVEL = new Set([
 // Everything else under assets/js (fireworks.js, scriptWatch.js, vendor/) is left untouched.
 const OBFUSCATE_JS = new Set([
   "avatar-crop.js",
+  "banhchung.js",
   "celebrate.js",
   "count_down.js",
   "custom.js",
+  "dashboard.js",
+  "minigame.js",
   "personalize.js",
   "playlist.js",
   "script.js",
   "self.js",
+  "sfx.js",
   "share.js",
   "snowflake.js",
+  "tracker.js",
   "xin-xam.js",
 ]);
 

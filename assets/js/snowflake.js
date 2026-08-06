@@ -1,7 +1,7 @@
 const canvas = document.getElementById("canvasSnow"),
   ctx = canvas.getContext("2d"),
   things = [],
-  thingsCount = window.innerWidth > 1024 ? 120 : 30,
+  thingsCount = window.innerWidth > 1024 ? 170 : 45,
   mouse = { x: -100, y: -100 },
   minDist = 125;
 function sizeCanvas() {
@@ -10,18 +10,22 @@ function sizeCanvas() {
     (canvas.height = document.querySelector("body").offsetHeight));
 }
 sizeCanvas();
-const image = new Image();
-image.src = "assets/img/hoa_dao.png";
+// Trộn 2 loại hoa Tết rơi: hoa đào (hồng, miền Bắc) và hoa mai (vàng, miền Nam).
+// Cả 2 ảnh đều vuông (tỉ lệ 1:1) nên dùng chung 1 công thức width=height.
+const imageDao = new Image();
+imageDao.src = "assets/img/hoa_dao.png";
+const imageMai = new Image();
+imageMai.src = "assets/img/hoa_mai.png";
+
 for (let i = 0; i < thingsCount; i++) {
-  let a = Math.random() + 0.15,
-    t = (Math.floor(15 * Math.random()) + 10) * (a + 0.15),
-    e = (image.naturalHeight / image.naturalWidth) * t,
+  let a = Math.random() * 0.5 + 0.5,
+    t = (Math.floor(16 * Math.random()) + 12) * (a + 0.15),
     n = 3 * Math.random() + 0.5;
   things.push({
     width: t,
-    height: e,
+    height: t,
     x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height - e,
+    y: Math.random() * canvas.height - t,
     speed: n,
     vY: n,
     vX: 0,
@@ -32,6 +36,7 @@ for (let i = 0; i < thingsCount; i++) {
     rad: Math.random(),
     opacity: a,
     _ratate: Math.random(),
+    type: Math.random() < 0.45 ? "mai" : "dao",
   });
 }
 function drawThings() {
@@ -48,7 +53,7 @@ function drawThings() {
         t - t * Math.cos(a.rad) + e * Math.sin(a.rad),
         e - t * Math.sin(a.rad) - e * Math.cos(a.rad)
       ),
-      ctx.drawImage(image, a.x, a.y, a.width, a.height),
+      ctx.drawImage(a.type === "mai" ? imageMai : imageDao, a.x, a.y, a.width, a.height),
       ctx.restore();
   });
 }
@@ -75,9 +80,9 @@ function update() {
   });
 }
 function reset(a) {
-  (a.opacity = Math.random() + 0.15),
-    (a.width = (Math.floor(15 * Math.random()) + 10) * (a.opacity + 0.15)),
-    (a.height = (image.naturalHeight / image.naturalWidth) * a.width),
+  (a.opacity = Math.random() * 0.5 + 0.5),
+    (a.width = (Math.floor(16 * Math.random()) + 12) * (a.opacity + 0.15)),
+    (a.height = a.width),
     (a.x = Math.floor(Math.random() * canvas.width)),
     (a.y = 0 - a.height),
     (a.speed = 3 * Math.random() + 0.5),

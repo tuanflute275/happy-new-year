@@ -1141,49 +1141,24 @@
     width: 220px;
   }
 
-  /* Tránh đè nhau dưới đáy: Đưa nút Xin xăm sang góc TRÁI */
+  /* Xếp gọn 3 nút (xin xăm, đập lợn, gói bánh chưng) thành 1 cột sát bên PHẢI,
+     giống bố cục trên desktop, nằm ngay trên widget info (@tuanflute275) */
   #xin-xam-wrapper {
-    bottom: 12px;
-    left: 16px;
-    right: auto;
-  }
-  .xinxam-tooltip {
-    left: calc(100% + 10px);
-    right: auto;
-    transform: translateY(-50%) translateX(-8px);
-  }
-  #xin-xam-wrapper:hover .xinxam-tooltip {
-    transform: translateY(-50%) translateX(0);
+    bottom: 70px;
+    left: auto;
+    right: 10px;
   }
 
-  /* Đập lợn xếp ngay trên Xin xăm, cùng góc trái */
   #minigame-wrapper {
-    bottom: 78px;
-    left: 16px;
-    right: auto;
-  }
-  .minigame-tooltip {
-    left: calc(100% + 10px);
-    right: auto;
-    transform: translateY(-50%) translateX(-8px);
-  }
-  #minigame-wrapper:hover .minigame-tooltip {
-    transform: translateY(-50%) translateX(0);
+    bottom: 128px;
+    left: auto;
+    right: 10px;
   }
 
-  /* Gói bánh chưng xếp ngay trên Đập lợn, cùng cột góc trái */
   #banhchung-wrapper {
-    bottom: 140px;
-    left: 16px;
-    right: auto;
-  }
-  .banhchung-tooltip {
-    left: calc(100% + 10px);
-    right: auto;
-    transform: translateY(-50%) translateX(-8px);
-  }
-  #banhchung-wrapper:hover .banhchung-tooltip {
-    transform: translateY(-50%) translateX(0);
+    bottom: 186px;
+    left: auto;
+    right: 10px;
   }
 
   /* Giao diện panel chia sẻ trên mobile */
@@ -1785,6 +1760,11 @@
 }
 
 @media (max-width: 480px) {
+  #xin-xam-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
   #minigame-btn {
     width: 48px;
     height: 48px;
